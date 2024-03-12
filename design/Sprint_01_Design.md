@@ -60,4 +60,57 @@ classDiagram
 Ultimately due to concerns regarding excessive complexity of implementing such a design, it was decided to abandon the server-client model in favour of having a singular offline client, whereby the game-logic was handled locally. 
 
 # The New Design
-The new design for the local single-client model is based around the node-centric structure of the Godot engine within which the game is to be implemented.
+The new design for the local single-client model is based around the node-centric structure of the Godot engine within which the game is to be implemented. At this stage in the development, players have not been implemented. 
+
+## Requirements for the first sprint
+- Design and implement data structures for the world map
+- Get a basic way of displaying the data structures (e.g. simply display them as interconnected *nodes*).
+- Load territory data from a file (e.g. a XML file)
+- Set up a basic developer console system to allow methods to be called directly.
+- Get a basic UI set up.
+
+## Main Scene Diagram
+```mermaid
+classDiagram
+    class Root {
+        <<Node2D>>
+    }
+
+    class PlayerUI {
+        <<Scene>>
+    }
+
+    class DebugUI {
+        <<Scene>>
+    }
+
+    class World {
+        <<Node2D>>
+        + List~Territory~ territories
+        + List~Continent~ continents
+        - InitialiseContinents(String continentPath)
+        - InitialiseTerritories(String territoryPath)
+    }
+
+
+    class Territory {
+        <<Scene>>
+        + int identifier
+        + Continent continent
+        + List~Territory~ connections
+        + Initialise(int identifier, string name, Continent continent, Texture2D texture)
+        + InitialiseConnections(List~int~ connectionIndexes)
+    }
+
+    class Continent {
+        + int tokens
+        + string name
+        + Continent(string name, int tokens)
+    }
+
+    Root <|-- PlayerUI
+    Root <|-- DebugUI
+    Root <|-- World
+    World <.. Territory
+    Territory <.. Continent
+```
