@@ -1,0 +1,44 @@
+<territoriesRoot>
+    <territory id="0" name="Afghanistan" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="1" name="China" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="2" name="India" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="3" name="Irkutsk" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="4" name="Japan" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="5" name="Kamchatka" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="6" name="Middle East" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="7" name="Mongolia" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="8" name="Siam" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="9" name="Siberia" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="10" name="Ural" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="11" name="Yakutsk" continent="0" texture="res://icon.svg" x="150" y="150">
+    <territory id="12" name="Great Britain" continent="1" texture="res://icon.svg" x="150" y="150">
+    <territory id="13" name="Iceland" continent="1" texture="res://icon.svg" x="150" y="150">
+    <territory id="14" name="Northern Europe" continent="1" texture="res://icon.svg" x="150" y="150">
+    <territory id="15" name="Scandinavia" continent="1" texture="res://icon.svg" x="150" y="150">
+    <territory id="16" name="Southern Europe" continent="1" texture="res://icon.svg" x="150" y="150">
+    <territory id="17" name="Ukraine" continent="1" texture="res://icon.svg" x="150" y="150">
+    <territory id="18" name="Western Europe" continent="1" texture="res://icon.svg" x="150" y="150">
+    <territory id="19" name="Alaska" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="20" name="Alberta" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="21" name="Central America" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="22" name="Eastern United States" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="23" name="Greenland" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="24" name="Northwest Territory" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="25" name="Ontario" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="26" name="Quebec" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="27" name="Western United States" continent="2" texture="res://icon.svg" x="150" y="150">
+    <territory id="28" name="Argentina" continent="3" texture="res://icon.svg" x="150" y="150">
+    <territory id="29" name="Brazil" continent="3" texture="res://icon.svg" x="150" y="150">
+    <territory id="30" name="Peru" continent="3" texture="res://icon.svg" x="150" y="150">
+    <territory id="31" name="Venezuela" continent="3" texture="res://icon.svg" x="150" y="150">
+    <territory id="32" name="Congo" continent="4" texture="res://icon.svg" x="150" y="150">
+    <territory id="33" name="East Africa" continent="4" texture="res://icon.svg" x="150" y="150">
+    <territory id="34" name="Egypt" continent="4" texture="res://icon.svg" x="150" y="150">
+    <territory id="35" name="Madagascar" continent="4" texture="res://icon.svg" x="150" y="150">
+    <territory id="36" name="North Africa" continent="4" texture="res://icon.svg" x="150" y="150">
+    <territory id="37" name="South Africa" continent="4" texture="res://icon.svg" x="150" y="150">
+    <territory id="38" name="Eastern Australia" continent="5" texture="res://icon.svg" x="150" y="150">
+    <territory id="39" name="Indonesia" continent="5" texture="res://icon.svg" x="150" y="150">
+    <territory id="40" name="New Guinea" continent="5" texture="res://icon.svg" x="150" y="150">
+    <territory id="41" name="Western Australia" continent="5" texture="res://icon.svg" x="150" y="150">
+</territoriesRoot>

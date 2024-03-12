@@ -1,0 +1,8 @@
+<continentsRoot>
+    <continent id="0" name="Asia" tokens="7"/>
+    <continent id="1" name="Europe" tokens="5"/>
+    <continent id="2" name="North America" tokens="5"/>
+    <continent id="3" name="South America" tokens="2"/>
+    <continent id="4" name="Africa" tokens="3"/>
+    <continent id="5" name="Australasia" tokens="2"/>
+</continentsRoot>
