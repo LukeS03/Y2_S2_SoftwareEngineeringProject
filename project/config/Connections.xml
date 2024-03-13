@@ -1,0 +1,17 @@
+<ConnectionsRoot>
+<Connections id="0">
+    <Connection id="10"/>
+    <Connection id="1" />
+    <Connection id="2" />
+    <Connection id="6" />
+    <Connection id="17" />
+</Connections>
+<Connections id="1">
+    <Connection id="9" />
+    <Connection id="7" />
+    <Connection id="8" />
+    <Connection id="2" />
+    <Connection id="0" />
+    <Connection id="10" />
+</Connections>
+</ConnectionsRoot>

@@ -9,7 +9,7 @@ public partial class Territory : Node2D
 	public int Identifier;
 	public string TerritoryName;
 	public Continent TerritoryContinent;
-	public List<PackedScene> Connections;
+	public List<Territory> Connections;
 	public Sprite2D TerritorySprite;
 
 	public void Initialise_Territory(int identifier, string territoryName, Continent continent, String texturePath, Vector2 position)
@@ -17,10 +17,12 @@ public partial class Territory : Node2D
 		this.Identifier			= identifier;
 		this.TerritoryName		= territoryName;
 		this.TerritoryContinent = continent;
-		this.Position			= position;
+		//this.Position			= position;
 
-		this.GetNode<Sprite2D>("TerritorySprite");
-		var texty = ResourceLoader.Load<Texture2D>(texturePath);
+		this.Name    = this.TerritoryName;
+		var theSprite  = this.GetNode<Sprite2D>("TerritorySprite");
+		var newTexture = ResourceLoader.Load<CompressedTexture2D>(texturePath);
+		theSprite.Texture = newTexture;
 	}
 
 	/// <summary>
@@ -30,7 +32,11 @@ public partial class Territory : Node2D
 	/// <param name="connectionIndexes">A list of indexes for bordering territories.</param>
 	public void Initialise_Connections(List<Territory> territoryList, List<int> connectionIndexes)
 	{
-		return;
+		this.Connections = new List<Territory>();
+		foreach (int i in connectionIndexes)
+		{
+			Connections.Add(territoryList[i]);
+		}
 	}
 	
 	// Called when the node enters the scene tree for the first time.

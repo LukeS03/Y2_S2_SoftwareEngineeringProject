@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cb5p8fi3ykflh"]
+[gd_scene load_steps=3 format=3 uid="uid://cb5p8fi3ykflh"]
 
 [ext_resource type="Script" path="res://src/World.cs" id="1_65lqx"]
+[ext_resource type="Texture2D" uid="uid://cd1tgivis1vbe" path="res://resources/world_map.png" id="2_dk5nv"]
 
 [node name="Root" type="Node2D"]
 
@@ -12,3 +13,8 @@ offset_bottom = 40.0
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1_65lqx")
+
+[node name="Background" type="Sprite2D" parent="World"]
+texture_filter = 1
+texture = ExtResource("2_dk5nv")
+centered = false

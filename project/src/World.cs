@@ -9,16 +9,20 @@ public partial class World : Node2D
 {
 	public List<Continent> Continents;
 
-	public List<PackedScene> Territories;
+	public List<Territory> Territories;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		string configDir = "res://config/";
 		string continentsFile = configDir + "/Continents.xml";
 		string territoriesFile = configDir + "/Territories.xml";
+		string connectionsFile = configDir + "/Connections.xml";
 		InitialiseContinents(continentsFile);
-		System.Console.WriteLine("finished parsing continents.");
+		System.Console.WriteLine("finished initialising continents.");
 		InitialiseTerritories(territoriesFile);
+		System.Console.WriteLine("Finished initialising territories.");
+		InitialiseConnections(connectionsFile);
+		System.Console.WriteLine("Finished initialising connections.");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -70,7 +74,7 @@ public partial class World : Node2D
 	private void InitialiseTerritories(string territoryPath)
 	{
 		
-		this.Territories = new List<PackedScene>();
+		this.Territories = new List<Territory>();
 		var parser = new XmlParser();
 		parser.Open(territoryPath);
 		while (parser.Read() != Error.FileEof)
@@ -95,9 +99,38 @@ public partial class World : Node2D
 				var territorySceneResource = ResourceLoader.Load<PackedScene>("res://scenes/Territory.tscn").Instantiate();
 				this.AddChild(territorySceneResource);
 				((Territory)territorySceneResource).Initialise_Territory(idBuf, nameBuf, Continents[contIdBuf], spritePath, position);
+				this.Territories.Add((Territory)territorySceneResource);
 				
 			}
 		}
 		return;
+	}
+
+	private void InitialiseConnections(string connectionsPath)
+	{
+		var parser = new XmlParser();
+		parser.Open(connectionsPath);
+		int territoryIndex = 0;
+		while (parser.Read() != Error.FileEof)
+		{
+			//Read through each "Connections" node.
+			if (parser.GetNodeName() == "Connections" && parser.GetNodeType() == XmlParser.NodeType.Element)
+			{
+				List<int> connectionIndexes = new List<int>();
+				
+				//For each "Connections" node, iterate through each of it's child nodes until the parser reaches the 
+				//closing XML tag.
+				while (!(parser.GetNodeName() == "Connections" && parser.GetNodeType() == XmlParser.NodeType.ElementEnd))
+				{
+					//If the current tag is a text element, add it to the list of connection indexes.
+					if (parser.GetNodeType() == XmlParser.NodeType.Element && parser.GetNodeName() == "Connection")
+					{
+						connectionIndexes.Add(int.Parse(parser.GetAttributeValue(0)));
+					}
+					parser.Read();
+				}
+				Territories[territoryIndex].Initialise_Connections(this.Territories, connectionIndexes);
+			}
+		}
 	}
 }

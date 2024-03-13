@@ -7,6 +7,5 @@
 script = ExtResource("1_jko04")
 
 [node name="TerritorySprite" type="Sprite2D" parent="."]
-position = Vector2(7.62497, 7.62497)
-scale = Vector2(0.0288087, 0.0288087)
 texture = ExtResource("2_l320x")
+centered = false
