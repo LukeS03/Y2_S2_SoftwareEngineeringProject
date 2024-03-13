@@ -106,7 +106,7 @@ classDiagram
     class Continent {
         + int tokens
         + string name
-        + Continent(string name, int tokens)
+        + Continent(int id, string name, int tokens)
     }
 
     Root <|-- PlayerUI
