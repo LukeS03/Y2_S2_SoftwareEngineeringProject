@@ -90,6 +90,7 @@ classDiagram
         + List~Continent~ continents
         - InitialiseContinents(String continentPath)
         - InitialiseTerritories(String territoryPath)
+        - InitialiseConnections(String connectionsPath)
     }
 
 
@@ -98,8 +99,8 @@ classDiagram
         + int identifier
         + Continent continent
         + List~Territory~ connections
-        + Initialise(int identifier, string name, Continent continent, Texture2D texture)
-        + InitialiseConnections(List~int~ connectionIndexes)
+        + Initialise(int identifier, string name, Continent continent, string texturePath, Vector2 position)
+        + InitialiseConnections(List~Territory~ territoryList, List~int~ connectionIndexes)
     }
 
     class Continent {
