@@ -10,4 +10,6 @@ script = ExtResource("1_jko04")
 texture = ExtResource("2_848hp")
 centered = false
 
-[node name="CollisionArea" type="Area2D" parent="TerritorySprite"]
+[node name="CollisionArea" type="Area2D" parent="."]
+
+[connection signal="mouse_entered" from="CollisionArea" to="." method="Mouse_Entered_Area"]
