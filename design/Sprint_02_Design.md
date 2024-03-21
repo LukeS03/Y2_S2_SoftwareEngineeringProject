@@ -7,34 +7,41 @@ This document is intended to give an outline for the design of the World Conques
 * Once ingame, the players should be able to choose their territories.
 * There should be an interface which shows whose turn it is, and describes what actions have just been carried out.
 * Allow players to select territories, adding user interface elements on high-light such as owning player, connections, units, etc.
-* Implement the beginnings of the Player class.
+* Implement the beginnings of the Player class
 
 ## Class Diagram for Main Game Scene
 ```mermaid
 classDiagram
-    class Root {
+    class BoardRoot {
         <<Node2D>>
         + Enum GameMode
         + List~Player~ Players
-        + Player CurrentPlayer
+        + Player CurrentTurn
         - SelectNextPlayer()
-        + StartClaimTerritoryEventHandler(Territory territory)
-        + StartFortifyTerritoryEventHandler(Territory territory)
     }
 
     class UserInterface {
         <<Scene>>
+        + List~Player~ Players
+        + Player CurrentTurn
+        + Territory SelectedTerritory
+        + Enum CurrentMode currentMode
+        + Initialise_Interface(List~Player~ Players)
+        + NewMessage(String Message)
+    }
+
+    class CurrentMode {
+        <<Enumeration>>
+        START_CLAIM_TERRITORIES
+        START_FORTIFY_TERRITORIES
     }
 
     class Player {
-        + Enum isCPU
-        + List~Territory~ controlledTerritories
+        + Boolean IsCPU
+        + List~Territory~ ControlledTerritories
         + String Name
         + Color PlayerColour
-    }
-
-    class DebugUI {
-        <<Scene>>
+        + int Tokens
     }
 
     class World {
@@ -55,8 +62,7 @@ classDiagram
         + Player Owner
         + int UnitTokens
         + Initialise(int identifier, string name, Continent continent, string texturePath, Vector2 position)
-        + Initialise_Connections(List~Territory~ territoryList, List~int~ connectionIndexes)
-        - Initialise_Collisions()
+        + InitialiseConnections(List~Territory~ territoryList, List~int~ connectionIndexes)
     }
 
     class Continent {
@@ -65,50 +71,20 @@ classDiagram
         + Continent(int id, string name, int tokens)
     }
 
-    Root <|-- UserInterface
-    Root <|-- DebugUI
-    Root <|-- Player
-    Root <|-- World
+    BoardRoot <|-- UserInterface
+    BoardRoot <|-- Player
+    BoardRoot <|-- World
     World <.. Territory
+    World <.. Continent
     Territory <.. Continent
-```
-
-## User Interface Design
-### User Interface Class Diagram
-```mermaid
-classDiagram
-    class UserInterface {
-        <<Scene>>
-        + List~Player~ Players
-        + Player CurrentTurn
-        + Territory SelectedTerritory
-        + Enum CurrentMode currentMode
-        + Initialise_Interface(List~Player~ Players)
-        + NewMessage(String Message)
-    }
-
-    class CurrentMode {
-        <<Enumeration>>
-        START_CLAIM_TERRITORIES
-        START_FORTIFY_TERRITORIES
-    }
-
     CurrentMode --|> UserInterface
+    CurrentMode--|>BoardRoot
+    
 ```
 
-### Process for Selecting a Territory
-1. When a territory is moused over, it is brightened slightly. This is handled node-side by the Territory.
-2. When a Territory is then clicked, it darkens itself and a signal is sent.
-3. This signal is handled by the UserInterface.
-4. The UserInterface displays details about the currently selected Territory, including it's name, owner, how many troops are placed on that territory, continent and connections.
+## Class Diagram for Main Menu
 
-## Main Menu Design
-
-### 
-
-## Game Logic Design
-
-### Flow Chart for Territory Allocation
+## Flow Chart for Territory Allocation
 ```mermaid
 flowchart TB
     A["Select the first player."]
@@ -132,12 +108,29 @@ flowchart TB
     DRight --> END
 ```
 
-### Process for first stage (Claiming Territories)
-1. Board selects a player, starting from the first player, and selecting the next player who still has tokens left after each turn. 
-2. Board sets the UserInterface scene's CurrentTurn, and sets the UserInterface scene's CurrentMode to either `START_CLAIM_TERRITORIES` if there are still territories left to claim, or `START_FORTIFY_TERRITORIES` if there are no territories left to claim but players still have tokens to place.
-3. If the player is not an AI, the UI should display which player is currently active, and prompt the player to either select an unclaimed territory or select one of their current territories. If the player is an AI, the UI should temporarily grey out options and allow the Board to take action.
-4. Once the player has clicked on a territory, the UI should display a menu prompting the player to carry out an action on that territory. The action specified by this menu will vary based on what `CurrentMode` value is currently set.
-5.
+## Process for Selecting a Territory
+1. When a territory is moused over, it is brightened slightly. This is handled node-side by the Territory.
+2. When a Territory is then clicked, it darkens itself and a signal is sent.
+3. This signal is handled by the UserInterface.
+4. The UserInterface displays the currently selected territory.
+
+## Process for first stage (Claiming Territories)
+1. Board selects the first player
+2. Board sets the UserInterface scene's `CurrentTurn` to the first player, and `CurrentMode` to `START_CLAIM_TERRITORIES`
+3. UserInterface waits for the player to click a territory.
+4. UserInterface displays territory details, with button allowing player to claim the territory.
+5. If the player clicks the button, the UserInterface sends a signal with the Territory claimed.
+6. The Board handles the signal and assigns the territory to the player.
+7. Select next player with tokens left
+
+## List of Signals
+* **Territory**
+    * `TerritoryClicked(Territory territory)`: Indicates that a Territory has been clicked on the board. This signal is intended to be handled by the UserInterface. Once a 
+* **UserInterface**
+    * Start Stage (i.e. when everyone is still claiming their territories)
+        * `StartPlayerClaimedTerritory(Territory territory)`: Indicates that the currently selected territory (as set by the BoardRoot instance) has been confirmed in the menu.
+        * `StartPlayerFortifiedTerritory(Territory territory, int tokens)`: Indicates that the player has confirmed a territory to place a token on.
+
 
 ## Miscellaneous Design Notes
 * This software will follow the principle of __**call down, signal up**__. That is so as to say, if a child node wants to interact with a parent node, it should communicate via Godot signals. If a parent node wants to interact with a child node, it should communicate via a direct method call to that child.

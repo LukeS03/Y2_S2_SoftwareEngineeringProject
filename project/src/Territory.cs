@@ -6,12 +6,28 @@ namespace WorldConquest;
 
 public partial class Territory : Node2D
 {
+	/* Colour values for modulating when the territory is highlighted. */
+	private static Color _unselectedTint = new Color(0f,0f,0f, 0f);
+	private static Color _selectedTint   = new Color(255f, 255f, 255f, 0.25f);
+	private static Color _hoveredTint    = new Color(128f, 128f, 128f, 0.5f);
+	
+	/* Attributes */
 	public int Identifier;
 	public string TerritoryName;
 	public Continent TerritoryContinent;
 	public List<Territory> Connections;
 	public Sprite2D TerritorySprite;
 	public Area2D CollisionArea;
+	public Player Owner;
+	
+	/* Signals */
+	
+	/// <summary>
+	/// This signal is emitted when the territory is clicked on by the user. This signal is intended to be handled by
+	/// the UserInterface instance. It sends a reference of itself so that the UI can display the territory data.
+	/// </summary>
+	[Signal]
+	public delegate void TerritoryClickedEventHandler(Territory territory);
 
 	/// <summary>
 	/// Initialise the territory from an XML file. After all territories have been initialised into a
@@ -29,6 +45,7 @@ public partial class Territory : Node2D
 		this.TerritoryName		= territoryName;
 		this.TerritoryContinent = continent;
 		//this.Position			= position;
+		Owner = null;
 
 		this.Name    = this.TerritoryName;
 		var theSprite  = this.GetNode<Sprite2D>("TerritorySprite");
@@ -79,14 +96,26 @@ public partial class Territory : Node2D
 
 	void Mouse_Entered_Area()
 	{
-		Console.Out.WriteLine("Hello from " + TerritoryName + "!");
+		this.Modulate = _hoveredTint;
 	}
 
 	void Mouse_Exited_Area()
 	{
-		
+		this.Modulate = _unselectedTint;
 	}
 	
+	private void _on_collision_area_input_event(Node viewport, InputEvent @event, long shape_idx)
+	{
+		if (@event is InputEventMouseButton mouseClick)
+		{
+			if (mouseClick.Pressed)
+			{
+				Console.Out.WriteLine("Clicked " + TerritoryName + "!");
+				this.Modulate = _selectedTint;
+				this.EmitSignal("TerritoryClicked", this);
+			}
+		}
+	}
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

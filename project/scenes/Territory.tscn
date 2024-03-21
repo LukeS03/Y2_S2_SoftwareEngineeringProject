@@ -12,4 +12,4 @@ centered = false
 
 [node name="CollisionArea" type="Area2D" parent="."]
 
-[connection signal="mouse_entered" from="CollisionArea" to="." method="Mouse_Entered_Area"]
+[connection signal="input_event" from="CollisionArea" to="." method="_on_collision_area_input_event"]
