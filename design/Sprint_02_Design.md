@@ -30,10 +30,10 @@ classDiagram
         + NewMessage(String Message)
     }
 
-    class CurrentMode {
+    class GameStatus {
         <<Enumeration>>
-        START_CLAIM_TERRITORIES
-        START_FORTIFY_TERRITORIES
+        StartClaimTerritories
+        StartFortifyTerritories
     }
 
     class Player {
@@ -77,8 +77,8 @@ classDiagram
     World <.. Territory
     World <.. Continent
     Territory <.. Continent
-    CurrentMode --|> UserInterface
-    CurrentMode--|>BoardRoot
+    GameStatus --|> UserInterface
+    GameStatus--|>BoardRoot
     
 ```
 
@@ -116,7 +116,7 @@ flowchart TB
 
 ## Process for first stage (Claiming Territories)
 1. Board selects the first player
-2. Board sets the UserInterface scene's `CurrentTurn` to the first player, and `CurrentMode` to `START_CLAIM_TERRITORIES`
+2. Board sets the UserInterface scene's `CurrentTurn` to the first player, and `CurrentMode` to `StartClaimTerritories`
 3. UserInterface waits for the player to click a territory.
 4. UserInterface displays territory details, with button allowing player to claim the territory.
 5. If the player clicks the button, the UserInterface sends a signal with the Territory claimed.
@@ -134,4 +134,3 @@ flowchart TB
 
 ## Miscellaneous Design Notes
 * This software will follow the principle of __**call down, signal up**__. That is so as to say, if a child node wants to interact with a parent node, it should communicate via Godot signals. If a parent node wants to interact with a child node, it should communicate via a direct method call to that child.
-

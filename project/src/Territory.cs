@@ -8,7 +8,7 @@ public partial class Territory : Node2D
 {
 	/* Colour values for modulating when the territory is highlighted. */
 	private static Color _unselectedTint = new Color(0f,0f,0f, 0f);
-	private static Color _selectedTint   = new Color(255f, 255f, 255f, 0.25f);
+	private static Color _selectedTint   = new Color(255f, 255f, 255f, 0.8f);
 	private static Color _hoveredTint    = new Color(128f, 128f, 128f, 0.5f);
 	
 	/* Attributes */
@@ -47,13 +47,17 @@ public partial class Territory : Node2D
 		//this.Position			= position;
 		Owner = null;
 
+		/* Loads the texture for the territory. */
 		this.Name    = this.TerritoryName;
 		var theSprite  = this.GetNode<Sprite2D>("TerritorySprite");
 		var newTexture = ResourceLoader.Load<CompressedTexture2D>(texturePath);
 		theSprite.Texture = newTexture;
 		
+		/* Initialise collision. */
 		this.CollisionArea = this.GetNode<Area2D>("CollisionArea");
 		Initialise_Collision();
+		
+		/* Initialise mouse detection for territories. The signal for detecting clicks  */
 		CollisionArea.MouseEntered += () => Mouse_Entered_Area();
 		CollisionArea.MouseExited  += () => Mouse_Exited_Area();
 	}
@@ -94,25 +98,38 @@ public partial class Territory : Node2D
 		}
 	}
 
+	/// <summary>
+	/// Run when the mouse enters the territory. Tints the territory.
+	/// </summary>
 	void Mouse_Entered_Area()
 	{
 		this.Modulate = _hoveredTint;
 	}
 
+	/// <summary>
+	/// Run when the mouse exits the territory. Removes the tint.
+	/// </summary>
 	void Mouse_Exited_Area()
 	{
 		this.Modulate = _unselectedTint;
 	}
 	
+	/// <summary>
+	/// Run when an input event is detected on the territory. If that input event is a mouse-click, it gives the territory
+	/// a tint.
+	/// </summary>
+	/// <param name="viewport"></param>
+	/// <param name="event"></param>
+	/// <param name="shape_idx"></param>
 	private void _on_collision_area_input_event(Node viewport, InputEvent @event, long shape_idx)
 	{
-		if (@event is InputEventMouseButton mouseClick)
+		if (@event is InputEventMouseButton mouseClick) //if the input event is a mouse-click.
 		{
-			if (mouseClick.Pressed)
+			if (mouseClick.Pressed) //if the mouse is clicked:
 			{
-				Console.Out.WriteLine("Clicked " + TerritoryName + "!");
-				this.Modulate = _selectedTint;
-				this.EmitSignal("TerritoryClicked", this);
+				Console.Out.WriteLine("Clicked " + TerritoryName + "!"); //TODO: This is for debugging. Will remove it sooner or later.
+				this.Modulate = _selectedTint; // Modulate the territory to a special tint used to show which territory has been selected.
+				this.EmitSignal("TerritoryClicked", this); // Emit a signal that the territory has been clicked. Will be handled by User Interface.
 			}
 		}
 	}
