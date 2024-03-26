@@ -139,3 +139,4 @@ flowchart TB
 
 ## Design Notes & Issues
 * Originally the `TerritoryClicked(Territory territory)` signal was to be handled directly by the User Interface. This was not possible, because it would have required finding each territory within the UserInterface class, and connecting each individual signal, which would have been problematic. Instead, the `TerritoryClicked(Territory territory)` signal will be handled by the BoardRoot, which will then set the `CurrentTerritory` attribute of the UserInterface. A setter method will be set up to update the Territory Data menu and change it's position relative to the mouse.
+* There is a bug where hovering territories seems to make them invisible.
