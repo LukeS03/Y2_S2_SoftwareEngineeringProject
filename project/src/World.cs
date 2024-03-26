@@ -8,8 +8,11 @@ namespace WorldConquest;
 public partial class World : Node2D
 {
 	public List<Continent> Continents;
-
 	public List<Territory> Territories;
+
+	[Signal]
+	public delegate void InitialisedTerritoriesEventHandler();
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -26,6 +29,8 @@ public partial class World : Node2D
 		System.Console.WriteLine("Finished initialising territories.");
 		InitialiseConnections(connectionsFile);
 		System.Console.WriteLine("Finished initialising connections.");
+		EmitSignal(SignalName.InitialisedTerritories);
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
