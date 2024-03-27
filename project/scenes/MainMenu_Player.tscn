@@ -17,6 +17,6 @@ layout_mode = 2
 text = "Is AI?"
 horizontal_alignment = 2
 
-[node name="CheckButton" type="CheckButton" parent="."]
+[node name="IsAIPlayerButton" type="CheckButton" parent="."]
 layout_mode = 2
 alignment = 2
