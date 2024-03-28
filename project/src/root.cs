@@ -5,7 +5,10 @@ using WorldConquest;
 
 public partial class root : Node2D
 {
-	public Enum GameStatus;
+	private int _currentPlayerIndex = -1;
+	private Territory _territoryBuffer;
+	
+	public GameStatus GameState;
 	public List<Player> Players;
 	public Player CurrentTurn;
 	public World GameWorld;
@@ -18,6 +21,8 @@ public partial class root : Node2D
 		this.Gui = this.GetNode<UserInterface>("UserInterface");
 
 		this.GameWorld.InitialisedTerritories += () => SetTerritorySignals();
+
+		this.GameState = GameStatus.StartClaimTerritories;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,7 +30,26 @@ public partial class root : Node2D
 	{
 	}
 
-	public void SetTerritorySignals()
+	/// <summary>
+	/// Select the next player.
+	/// </summary>
+	private void SetCurrentPlayer()
+	{
+		this._currentPlayerIndex = _currentPlayerIndex + 1;
+		if (_currentPlayerIndex >= Players.Count)
+		{
+			this._currentPlayerIndex = 0;
+		}
+		this.CurrentTurn	 = Players[_currentPlayerIndex];
+		this.Gui.CurrentTurn = this.CurrentTurn;
+		
+	}
+
+	/// <summary>
+	/// This method sets up click detection signals from each of the territories so that said mouse-click may be
+	/// relayed to the UserInterface.
+	/// </summary>
+	private void SetTerritorySignals()
 	{
 		List<Territory> territoriesList = this.GameWorld.Territories;
 		foreach(Territory t in territoriesList)
@@ -34,8 +58,55 @@ public partial class root : Node2D
 		}
 	}
 
-	public void TerritoryClickedTellUi(Territory territory)
+	/// <summary>
+	/// Tells the UserInterface that the user has clicked on a territory.
+	/// </summary>
+	/// <param name="territory">The territory that has been clicked on by the user.</param>
+	private void TerritoryClickedTellUi(Territory territory)
 	{
 		this.Gui.CurrentTerritory = territory;
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	private void GameTransitionLoop()
+	{
+		while (true)
+		{
+			SetCurrentPlayer();
+			switch (GameState)
+			{
+				case GameStatus.StartClaimTerritories:
+					StartClaimTerritories();
+					break;
+				case GameStatus.StartFortifyTerritories:
+					StartClaimTerritories();
+					break;
+			}
+		}
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	private void StartClaimTerritories()
+	{
+		/*
+		 * 1. set the UI's GameStatus to StartClaimTerritories
+		 * 2. Set the UI's CurrentTurn to match this one's
+		 * 3. Await the signal from the UI.
+		 * 4. Assign the chosen territory to the territory returned by the UI.
+		 */
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	private void StartFortifyTerritories()
+	{
+		/*
+		 * kinda the same as above tbh
+		 */
 	}
 }

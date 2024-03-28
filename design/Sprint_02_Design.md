@@ -18,6 +18,10 @@ classDiagram
         + List~Player~ Players
         + Player CurrentTurn
         - SelectNextPlayer()
+        - SetTerritorySignals()
+        - StartClaimTerritories()
+        - StartFortifyTerritories()
+        - GameTransitionLoop()
     }
 
     class UserInterface {
@@ -27,7 +31,6 @@ classDiagram
         + Territory SelectedTerritory
         + Enum CurrentMode currentMode
         + Initialise_Interface(List~Player~ Players)
-        + NewMessage(String Message)
     }
 
     class GameStatus {
@@ -89,7 +92,6 @@ classDiagram
 flowchart TB
     A["Select the first player."]
     Aalt["Select the next player."]
-    A1["Set UI's "]
     B["Call UI's SetCurrentPlayer() method to set chosen player"]
     Opt1{"Have all territories been claimed?"}
 
