@@ -18,7 +18,7 @@ public partial class Territory : Node2D
 	public List<Territory> Connections;
 	public Sprite2D TerritorySprite;
 	public Area2D CollisionArea;
-	public Player Owner;
+	public new Player Owner;
 	
 	/* Signals */
 	
@@ -123,13 +123,14 @@ public partial class Territory : Node2D
 	/// <param name="shape_idx"></param>
 	private void _on_collision_area_input_event(Node viewport, InputEvent @event, long shape_idx)
 	{
-		if (@event is InputEventMouseButton mouseClick) //if the input event is a mouse-click.
+		if (@event is InputEventMouseButton mouseClick && mouseClick.Pressed)
 		{
-			if (mouseClick.Pressed) //if the mouse is clicked:
+			// Using '1' directly for the left mouse button
+			
 			{
-				Console.Out.WriteLine("Clicked " + TerritoryName + "!"); //TODO: This is for debugging. Will remove it sooner or later.
-				this.Modulate = _selectedTint; // Modulate the territory to a special tint used to show which territory has been selected.
-				this.EmitSignal("TerritoryClicked", this); // Emit a signal that the territory has been clicked. Will be handled by User Interface.
+				GD.Print("Clicked " + TerritoryName + "!");
+				Modulate = _selectedTint;
+				EmitSignal(nameof(TerritoryClicked), this);
 			}
 		}
 	}
@@ -137,7 +138,8 @@ public partial class Territory : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		
+		var signalCallable = new Callable(this, nameof(_on_collision_area_input_event));
+		CollisionArea.Connect("input_event", signalCallable);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
