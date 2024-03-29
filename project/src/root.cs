@@ -20,9 +20,24 @@ public partial class root : Node2D
 		this.GameWorld = this.GetNode<World>("World");
 		this.Gui = this.GetNode<UserInterface>("UserInterface");
 
-		this.GameWorld.InitialisedTerritories += () => SetTerritorySignals();
+		/*This code is invalid and the signal will be removed. Children are initialised before their parents and therefore
+		  we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
+		//this.GameWorld.InitialisedTerritories += () => SetTerritorySignals();
+		
+		SetTerritorySignals();
 
 		this.GameState = GameStatus.StartClaimTerritories;
+		
+		/*
+		 * SAMPLE PLAYERS.
+		 * TBD: Remove once the main menu is set up
+		 */
+
+		int TokensPerPlayer;
+		switch (Players.Count)
+		{
+			
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,6 +80,7 @@ public partial class root : Node2D
 	private void TerritoryClickedTellUi(Territory territory)
 	{
 		this.Gui.CurrentTerritory = territory;
+		this.Gui.OnTerritoryClicked();
 	}
 
 	/// <summary>

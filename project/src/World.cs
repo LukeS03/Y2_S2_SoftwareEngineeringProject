@@ -29,7 +29,7 @@ public partial class World : Node2D
 		System.Console.WriteLine("Finished initialising territories.");
 		InitialiseConnections(connectionsFile);
 		System.Console.WriteLine("Finished initialising connections.");
-		EmitSignal(SignalName.InitialisedTerritories);
+		//EmitSignal(SignalName.InitialisedTerritories);
 
 	}
 

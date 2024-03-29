@@ -19,22 +19,30 @@ script = ExtResource("1_j1xg3")
 
 [node name="TerritoryNameAndOwner" type="Label" parent="TerritoryDataMenu"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.780392, 0.780392, 0.780392, 1)
+theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Afghanistan: Unclaimed
 "
 
 [node name="ConnectionsHeaderLabel" type="Label" parent="TerritoryDataMenu"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
 text = "Connections:"
 
 [node name="ConnectionsListLabel" type="Label" parent="TerritoryDataMenu"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 text = "• China"
 
 [node name="InfantryLabel" type="Label" parent="TerritoryDataMenu"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 text = "0 Tokens"
 
 [node name="ActionButton" type="Button" parent="TerritoryDataMenu"]
@@ -59,6 +67,8 @@ offset_bottom = 75.0
 
 [node name="ModeLabel" type="Label" parent="BottomMenuBar"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
 text = "Player 1: Claim
 "
@@ -70,26 +80,36 @@ layout_mode = 2
 [node name="PlayerLabel" type="Label" parent="BottomMenuBar/PlayersHBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 text = "Player 1
 "
 
 [node name="PlayerLabel2" type="Label" parent="BottomMenuBar/PlayersHBox"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 text = "Player 1
 "
 
 [node name="PlayerLabel3" type="Label" parent="BottomMenuBar/PlayersHBox"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 text = "Player 1
 "
 
 [node name="PlayerLabel4" type="Label" parent="BottomMenuBar/PlayersHBox"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 text = "Player 1
 "
 
 [node name="PlayerLabel5" type="Label" parent="BottomMenuBar/PlayersHBox"]
 layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 text = "Player 1
 "
 

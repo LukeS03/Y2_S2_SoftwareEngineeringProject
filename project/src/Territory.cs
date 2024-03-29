@@ -126,20 +126,15 @@ public partial class Territory : Node2D
 		if (@event is InputEventMouseButton mouseClick && mouseClick.Pressed)
 		{
 			// Using '1' directly for the left mouse button
-			
-			{
-				GD.Print("Clicked " + TerritoryName + "!");
-				Modulate = _selectedTint;
-				EmitSignal(nameof(TerritoryClicked), this);
-			}
+			GD.Print("Clicked " + TerritoryName + "!");
+			Modulate = _selectedTint;
+			EmitSignal(SignalName.TerritoryClicked, this);
 		}
 	}
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var signalCallable = new Callable(this, nameof(_on_collision_area_input_event));
-		CollisionArea.Connect("input_event", signalCallable);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
