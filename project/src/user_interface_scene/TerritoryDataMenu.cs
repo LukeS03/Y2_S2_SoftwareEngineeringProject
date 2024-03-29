@@ -1,6 +1,6 @@
 using Godot;
-using System.Collections.Generic;
-using WorldConquest;
+
+namespace WorldConquest.user_interface_scene;
 
 public partial class TerritoryDataMenu : VBoxContainer
 {

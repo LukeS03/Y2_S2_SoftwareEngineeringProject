@@ -1,7 +1,5 @@
-using Godot;
-using System;
 using System.Collections.Generic;
-using WorldConquest;
+using Godot;
 
 /*
  * TODO: 
@@ -13,6 +11,8 @@ using WorldConquest;
 	d Pressing the "Is AI" button should toggle whether that player isCPU or not.
  4 I will handle the initialisation of the game scene next.
  */
+namespace WorldConquest.MainMenu_Scene;
+
 public partial class MainMenu : Control
 {
 	public bool IsCapitalRisk;

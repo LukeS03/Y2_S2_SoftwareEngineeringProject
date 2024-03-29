@@ -1,7 +1,7 @@
-using Godot;
-using System;
 using System.Collections.Generic;
-using WorldConquest;
+using Godot;
+
+namespace WorldConquest;
 
 public partial class root : Node2D
 {
@@ -12,16 +12,17 @@ public partial class root : Node2D
 	public List<Player> Players;
 	public Player CurrentTurn;
 	public World GameWorld;
-	public UserInterface Gui;
+	public user_interface_scene.UserInterface Gui;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		this.GameWorld = this.GetNode<World>("World");
-		this.Gui = this.GetNode<UserInterface>("UserInterface");
+		this.Gui = this.GetNode<user_interface_scene.UserInterface>("UserInterface");
+		this.Players = new List<Player>();
 
 		/*This code is invalid and the signal will be removed. Children are initialised before their parents and therefore
-		  we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
+	  we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
 		//this.GameWorld.InitialisedTerritories += () => SetTerritorySignals();
 		
 		SetTerritorySignals();
@@ -33,11 +34,45 @@ public partial class root : Node2D
 		 * TBD: Remove once the main menu is set up
 		 */
 
-		int TokensPerPlayer;
+		var color1 = new Color(Colors.Aqua);
+		var color2 = new Color(Colors.Lavender);
+		Player samplePlayer1 = new Player("Sample Player One", color1, false);
+		this.Players.Add(samplePlayer1);
+
+		Player samplePlayer2 = new Player("Sample Player Two", color2, true);
+		this.Players.Add(samplePlayer2);
+
+
+		int tokensPerPlayer = 9001;
 		switch (Players.Count)
 		{
-			
+			case 1:
+				//hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm . . .
+				tokensPerPlayer = 45;
+				break;
+			case 2:
+				tokensPerPlayer = 40;
+				break;
+			case 3:
+				tokensPerPlayer = 35;
+				break;
+			case 4:
+				tokensPerPlayer = 30;
+				break;
+			case 5:
+				tokensPerPlayer = 25;
+				break;
+			case 6:
+				tokensPerPlayer = 20;
+				break;
 		}
+		
+		foreach(var p in Players)
+		{
+			p.Tokens = tokensPerPlayer;
+		}
+		
+		this.Gui.InitialisePlayers(Players);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

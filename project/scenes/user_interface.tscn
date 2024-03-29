@@ -77,40 +77,4 @@ horizontal_alignment = 1
 [node name="PlayersHBox" type="HBoxContainer" parent="BottomMenuBar"]
 layout_mode = 2
 
-[node name="PlayerLabel" type="Label" parent="BottomMenuBar/PlayersHBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-text = "Player 1
-"
-
-[node name="PlayerLabel2" type="Label" parent="BottomMenuBar/PlayersHBox"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-text = "Player 1
-"
-
-[node name="PlayerLabel3" type="Label" parent="BottomMenuBar/PlayersHBox"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-text = "Player 1
-"
-
-[node name="PlayerLabel4" type="Label" parent="BottomMenuBar/PlayersHBox"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-text = "Player 1
-"
-
-[node name="PlayerLabel5" type="Label" parent="BottomMenuBar/PlayersHBox"]
-layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-text = "Player 1
-"
-
 [connection signal="pressed" from="TerritoryDataMenu/ActionButton" to="." method="_on_action_button_pressed"]
