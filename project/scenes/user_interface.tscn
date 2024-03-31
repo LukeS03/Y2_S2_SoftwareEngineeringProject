@@ -60,10 +60,11 @@ icon_alignment = 1
 
 [node name="BottomMenuBar" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 468.0
-offset_top = 13.0
-offset_right = 794.0
-offset_bottom = 75.0
+offset_left = 474.0
+offset_top = 614.0
+offset_right = 800.0
+offset_bottom = 676.0
+alignment = 1
 
 [node name="ModeLabel" type="Label" parent="BottomMenuBar"]
 layout_mode = 2

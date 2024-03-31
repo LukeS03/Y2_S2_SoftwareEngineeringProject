@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using Godot;
 
 namespace WorldConquest;
@@ -22,7 +23,7 @@ public partial class root : Node2D
 		this.Players = new List<Player>();
 
 		/*This code is invalid and the signal will be removed. Children are initialised before their parents and therefore
-	  we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
+		 we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
 		//this.GameWorld.InitialisedTerritories += () => SetTerritorySignals();
 		
 		SetTerritorySignals();
@@ -73,6 +74,7 @@ public partial class root : Node2D
 		}
 		
 		this.Gui.InitialisePlayers(Players);
+		GameTransitionLoop();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -91,8 +93,6 @@ public partial class root : Node2D
 			this._currentPlayerIndex = 0;
 		}
 		this.CurrentTurn	 = Players[_currentPlayerIndex];
-		this.Gui.CurrentTurn = this.CurrentTurn;
-		
 	}
 
 	/// <summary>
@@ -126,6 +126,7 @@ public partial class root : Node2D
 		while (true)
 		{
 			SetCurrentPlayer();
+			this.GameState = GameStatus.StartClaimTerritories;
 			switch (GameState)
 			{
 				case GameStatus.StartClaimTerritories:
@@ -135,6 +136,8 @@ public partial class root : Node2D
 					StartClaimTerritories();
 					break;
 			}
+
+			break;
 		}
 	}
 
@@ -143,6 +146,7 @@ public partial class root : Node2D
 	/// </summary>
 	private void StartClaimTerritories()
 	{
+		this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
 		/*
 		 * 1. set the UI's GameStatus to StartClaimTerritories
 		 * 2. Set the UI's CurrentTurn to match this one's

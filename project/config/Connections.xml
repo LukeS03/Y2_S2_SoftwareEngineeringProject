@@ -1,79 +1,41 @@
 <ConnectionsRoot>
-
 <Connections id="0">
-
     <Connection id="10"/>
-
     <Connection id="1" />
-
     <Connection id="2" />
-
     <Connection id="6" />
-
     <Connection id="17" />
-
 </Connections>
-
 <Connections id="1">
-
     <Connection id="9" />
-
     <Connection id="7" />
-
     <Connection id="8" />
-
     <Connection id="2" />
-
     <Connection id="0" />
-
     <Connection id="10" />
-
 </Connections>
-
 <Connections id="2">
-
     <Connection id="8"/>
-
     <Connection id="1"/>
-
     <Connection id="0"/>
-
     <Connection id="6"/>
-
 </Connections>
-
 <Connections id="3">
-
     <Connection id="7"/>
-
     <Connection id="5"/>
-
     <Connection id="11"/>
-
     <Connection id="9"/>
-
 </Connections>
-
 <connections id="4">
-
     <connection id="7"/>
-
     <connection id="5"/>
-
 </Connections>
-
 <connection id="5">
-
     <connection id="4"/>
-
     <connection id="19"/>
-
     <connection id="11"/>
-
     <connection id="3"/>
-
     <connection id="7"/>
-
 </Connections>
 
 <connection id="6">
