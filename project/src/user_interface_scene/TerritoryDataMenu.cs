@@ -7,6 +7,7 @@ public partial class TerritoryDataMenu : VBoxContainer
     private Label territoryNameAndOwnerLabel;
     private Label connectionsHeaderLabel;
     private Label connectionsListLabel;
+    public GameStatus CurrentState;
 
     public override void _Ready()
     {
@@ -14,7 +15,7 @@ public partial class TerritoryDataMenu : VBoxContainer
         connectionsListLabel = GetNode<Label>("ConnectionsListLabel");
     }
 
-    public void View_Territory(Territory territory)
+    public void View_Territory(Territory territory, GameStatus currentState)
     {
         GD.Print("View_Territory called for: " + territory.TerritoryName);
         string NewTerritoryNameAndOwnerLabelText = territory.TerritoryName + " - Owner: " + (territory.Owner != null ? territory.Owner.Name : "None");

@@ -150,6 +150,7 @@ public partial class World : Node2D
 					parser.Read();
 				}
 				Territories[territoryIndex].Initialise_Connections(this.Territories, connectionIndexes);
+				territoryIndex++;
 			}
 		}
 	}

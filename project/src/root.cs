@@ -14,6 +14,7 @@ public partial class root : Node2D
 	public Player CurrentTurn;
 	public World GameWorld;
 	public user_interface_scene.UserInterface Gui;
+	private bool _signalReceived = false;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -27,6 +28,8 @@ public partial class root : Node2D
 		//this.GameWorld.InitialisedTerritories += () => SetTerritorySignals();
 		
 		SetTerritorySignals();
+
+		this.Gui.DataMenuAction += DataMenuActionSignalReceived;
 
 		this.GameState = GameStatus.StartClaimTerritories;
 		
@@ -82,6 +85,11 @@ public partial class root : Node2D
 	{
 	}
 
+	private void DataMenuActionSignalReceived()
+	{
+		this._signalReceived = true;
+	}
+
 	/// <summary>
 	/// Select the next player.
 	/// </summary>
@@ -123,45 +131,27 @@ public partial class root : Node2D
 	/// </summary>
 	private void GameTransitionLoop()
 	{
+		this.GameState = GameStatus.StartClaimTerritories;
 		while (true)
 		{
-			SetCurrentPlayer();
-			this.GameState = GameStatus.StartClaimTerritories;
 			switch (GameState)
 			{
-				case GameStatus.StartClaimTerritories:
-					StartClaimTerritories();
-					break;
-				case GameStatus.StartFortifyTerritories:
-					StartClaimTerritories();
+				case GameStatus.StartPhase:
+					StartPhase();
 					break;
 			}
-
-			break;
+			SetCurrentPlayer();
 		}
 	}
 
 	/// <summary>
 	/// 
 	/// </summary>
-	private void StartClaimTerritories()
+	private void StartPhase()
 	{
 		this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
-		/*
-		 * 1. set the UI's GameStatus to StartClaimTerritories
-		 * 2. Set the UI's CurrentTurn to match this one's
-		 * 3. Await the signal from the UI.
-		 * 4. Assign the chosen territory to the territory returned by the UI.
-		 */
-	}
-
-	/// <summary>
-	/// 
-	/// </summary>
-	private void StartFortifyTerritories()
-	{
-		/*
-		 * kinda the same as above tbh
-		 */
+		this.Gui.CurrentTerritory.Owner = this.CurrentTurn;
+		this.CurrentTurn.ControlledTerritories.Add(this.Gui.CurrentTerritory);
+		this._signalReceived = false;
 	}
 }

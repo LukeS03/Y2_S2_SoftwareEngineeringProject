@@ -129,12 +129,7 @@ flowchart TB
 * **Territory**
     * `TerritoryClicked(Territory territory)`: Indicates that a Territory has been clicked on the board. This signal is intended to be handled by the BoardRoot. Once this signal is recieved by the BoardRoot, the BoardRoot will change the UserInterface attribute `CurrentTerritory`. A setter method will then set the current 
 * **UserInterface**
-    * Start Stage (i.e. when everyone is still claiming their territories)
-        * `StartPlayerClaimedTerritory(Territory territory)`: Indicates that the currently selected territory (as set by the BoardRoot instance) has been confirmed in the menu.
-        * `StartPlayerFortifiedTerritory(Territory territory, int tokens)`: Indicates that the player has confirmed a territory to place a token on.
-* **World**
-    * Initialisation
-        * `InitialisedTerritories(List<Territory> territories)`: Indicates that the continents, territories and connections have been initialised, and sends a reference to the Territory list to the root so that the root can listen for territory clicked and change the UserInterface method.
+    * `DataMenuAction(Territory territory)`: Indicates that a territory has been selected in the TerritoryDataMenu.
 
 ## Miscellaneous Design Notes
 * This software will follow the principle of __**call down, signal up**__. That is so as to say, if a child node wants to interact with a parent node, it should communicate via Godot signals. If a parent node wants to interact with a child node, it should communicate via a direct method call to that child.
@@ -142,3 +137,5 @@ flowchart TB
 ## Design Notes & Issues
 * Originally the `TerritoryClicked(Territory territory)` signal was to be handled directly by the User Interface. This was not possible, because it would have required finding each territory within the UserInterface class, and connecting each individual signal, which would have been problematic. Instead, the `TerritoryClicked(Territory territory)` signal will be handled by the BoardRoot, which will then set the `CurrentTerritory` attribute of the UserInterface. A setter method will be set up to update the Territory Data menu and change it's position relative to the mouse.
 * There is a bug where hovering territories seems to make them invisible.
+* Originally a signal called `InitialisedTerritories(List<Territory> territories)` was to be emitted once the continents, territories and connections were all initialised. This signal was redundant as Godot initialises children first before their parent nodes. 
+* There were originally going to be two signals sent by the UserInterface called `StartPlayerClaimedTerritory(Territory territory)` and `StartPlayerFortifiedTerritory(Territory territory, int tokens)`. They were scapped in favour of the signal `DataMenuActionEventHandler`.

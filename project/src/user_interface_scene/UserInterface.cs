@@ -7,16 +7,14 @@ public partial class UserInterface : Control
 {
 
 	public Territory CurrentTerritory;
-
 	private Player _currentTurn;
-
 	private GameStatus _gameState;
-	
 	public TerritoryDataMenu TerritoryMenu;
-
 	public List<UserInterfacePlayer> PlayersList;
-
 	private Label _modeLabel;
+
+	[Signal]
+	public delegate void DataMenuActionEventHandler();
     
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -32,7 +30,12 @@ public partial class UserInterface : Control
 
 	public void OnTerritoryClicked()
 	{
-		this.TerritoryMenu.View_Territory(CurrentTerritory);
+		this.TerritoryMenu.View_Territory(CurrentTerritory, _gameState);
+	}
+
+	public void OnDataMenuAction()
+	{
+		EmitSignal(SignalName.DataMenuAction);
 	}
 
 	public void InitialisePlayers(List<Player> players)
