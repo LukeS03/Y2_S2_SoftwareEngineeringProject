@@ -127,7 +127,7 @@ flowchart TB
         h["The BoardRoot assigns the territory to that user, or if it is in the StartPhaseFortifyTerritories stage, it adds one troop to that territory."]
     end
     subgraph "UserInterface"
-        d["The UserInterface prompts the player to make a move."]
+        d["The UserInterface prompts the player to make a move. The button in the TerritoryDataMenu is updated with respect to the current turn."]
         f["The UserInterface sends a signal `DataActionEvent`."]
     end
     subgraph "user agent"
