@@ -17,11 +17,16 @@ classDiagram
         + Enum GameMode
         + List~Player~ Players
         + Player CurrentTurn
+        + UserInterface Gui
+        + TerritoryClickedTellUi()
         - SelectNextPlayer()
         - SetTerritorySignals()
         - StartClaimTerritories()
         - StartFortifyTerritories()
-        - GameTransitionLoop()
+        - DataMenuActionSignalReceived()
+        - TurnTransition()
+        - StartPhaseClaimTerritories()
+        - StartPhaseFortifyTerritories
     }
 
     class UserInterface {
@@ -51,6 +56,7 @@ classDiagram
         <<Node2D>>
         + List~Territory~ territories
         + List~Continent~ continents
+        + List~Territory~ GetUnclaimedTerritories()
         - InitialiseContinents(String continentPath)
         - InitialiseTerritories(String territoryPath)
         - InitialiseConnections(String connectionsPath)
@@ -85,7 +91,54 @@ classDiagram
     
 ```
 
-## Class Diagram for Main Menu
+## Game logic pseudocode:
+```
+Ready:
+	Set current GameState to StartClaimTerritoriesStage
+	Set the the first player using SetCurrentPlayer()
+	Update the GUI to reflect the current player and stage.
+
+DataMenuActionSignalReceived: (Called when the button in the DataMenu is clicked.)
+	If in StartClaimTerritories phase:
+		StartPhaseClaimTerritories()
+	If in StartFortifyTerritories phase:
+		StartPhaseFortifyTerritories()
+		
+
+TurnTransition:
+	If in StartClaimTerritories Phase:
+		If there are any unclaimed territories left (i.e. if World.GetUnclaimedTerritories() returns a non-empty list):
+			Select a new player to claim a territory using SetCurrentPlayer()
+		Else:
+			Set phase to StartFortifyTerritories
+			TurnTransition()
+	if in StartFortifyTerritories:
+		If all territories are claimed:
+			If there is at least one player with remaining tokens:
+				While the currently selected player has no tokens:
+					Select the next player to fortify a territory using SetCurrentPlayer()
+			If none of the players have any tokens left:
+				End the StartFortifyTerritories phase.
+				Set player index pointer to -1
+				TurnTransition()
+			
+StartPhaseClaimTerritories:
+	Get the currently selected territory from the GUI.
+	Assign the claimed territory to the player.
+	Add the territory to the player's internal list of territories.
+	TurnTransition()
+	
+
+StartPhaseFortifyTerritories:
+	Get the currently selected territory from the GUI.
+	Assign said territory one extra infantry token.
+	Take one infantry token from the player.
+	TurnTransition()
+
+
+List<Territory> World.GetUnclaimedTerritories:
+	Return a list of territories that have no owner.
+```
 
 ## Flow Chart for Territory Allocation
 ```mermaid

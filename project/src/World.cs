@@ -154,4 +154,19 @@ public partial class World : Node2D
 			}
 		}
 	}
+
+	/// <summary>
+	/// Returns a list of territories that have no owner set.
+	/// </summary>
+	/// <returns>A List of unclaimed territories.</returns>
+	public List<Territory> GetUnclaimedTerritories()
+	{
+		List<Territory> unclaimedTerritories = new List<Territory>();
+		foreach (var t in Territories)
+		{
+			if (t.Owner == null) unclaimedTerritories.Add(t);
+		}
+
+		return unclaimedTerritories;
+	}
 }

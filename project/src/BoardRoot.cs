@@ -14,7 +14,6 @@ public partial class BoardRoot : Node2D
 	public Player CurrentTurn;
 	public World GameWorld;
 	public user_interface_scene.UserInterface Gui;
-	private bool _signalReceived = false;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -77,17 +76,13 @@ public partial class BoardRoot : Node2D
 		}
 		
 		this.Gui.InitialisePlayers(Players);
-		//GameTransitionLoop();
+		SetCurrentPlayer();
+		this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-	}
-
-	private void DataMenuActionSignalReceived()
-	{
-		this._signalReceived = true;
 	}
 
 	/// <summary>
@@ -125,33 +120,74 @@ public partial class BoardRoot : Node2D
 		this.Gui.CurrentTerritory = territory;
 		this.Gui.OnTerritoryClicked();
 	}
-
-	/// <summary>
-	/// 
-	/// </summary>
-	private void GameTransitionLoop()
+	
+	private void DataMenuActionSignalReceived()
 	{
-		this.GameState = GameStatus.StartClaimTerritories;
-		while (true)
+		switch (GameState)
 		{
-			switch (GameState)
-			{
-				case GameStatus.StartPhase:
-					StartPhase();
-					break;
-			}
-			SetCurrentPlayer();
+			case GameStatus.StartClaimTerritories:
+				StartClaimTerritories();
+				break;
+			case GameStatus.StartFortifyTerritories:
+				StartFortifyTerritories();
+				break;
+		}
+	}
+
+	private void TurnTransition()
+	{
+		switch (GameState)
+		{
+			case GameStatus.StartClaimTerritories:
+				if (this.GameWorld.GetUnclaimedTerritories().Count != 0)
+				{
+					SetCurrentPlayer();
+					this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
+				}
+				else
+				{
+					this.GameState = GameStatus.StartFortifyTerritories;
+					TurnTransition();
+				}
+				break;
+			case GameStatus.StartFortifyTerritories:
+				if (Player.AnyPlayersHaveRemainingTokens(Players))
+				{
+					do
+					{
+						SetCurrentPlayer();
+					} while (CurrentTurn.Tokens <= 0);
+					this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
+				}
+				else
+				{
+					//set the game state to the fortify stage as seen above. This code has not been written yet as there
+					// is no fortify stage enum as of Sprint 2.
+					
+					//this.GameState = GameStatus.FortifyTerritoriesStage;
+					this._currentPlayerIndex = -1;
+					TurnTransition();
+				}
+				break;
 		}
 	}
 
 	/// <summary>
 	/// 
 	/// </summary>
-	private void StartPhase()
+	private void StartClaimTerritories()
 	{
 		this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
 		this.Gui.CurrentTerritory.Owner = this.CurrentTurn;
 		this.CurrentTurn.ControlledTerritories.Add(this.Gui.CurrentTerritory);
-		this._signalReceived = false;
+		TurnTransition();
 	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	private void StartFortifyTerritories()
+	{
+	}
+	
 }

@@ -26,4 +26,14 @@ public class Player
         this.Tokens = 0;
         this.ControlledTerritories = new List<Territory>();
     }
+
+    public static bool AnyPlayersHaveRemainingTokens(List<Player> players)
+    {
+        foreach (var p in players)
+        {
+            if (p.Tokens > 0) return true;
+        }
+
+        return false;
+    }
 }

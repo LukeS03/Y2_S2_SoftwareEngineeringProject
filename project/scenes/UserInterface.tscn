@@ -78,4 +78,4 @@ horizontal_alignment = 1
 [node name="PlayersHBox" type="HBoxContainer" parent="BottomMenuBar"]
 layout_mode = 2
 
-[connection signal="pressed" from="TerritoryDataMenu/ActionButton" to="." method="_on_action_button_pressed"]
+[connection signal="pressed" from="TerritoryDataMenu/ActionButton" to="." method="OnDataMenuAction"]
