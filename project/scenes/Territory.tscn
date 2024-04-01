@@ -1,11 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://dycwur4m7a5cs"]
 
 [ext_resource type="Script" path="res://src/Territory.cs" id="1_jko04"]
-[ext_resource type="Texture2D" uid="uid://0qjr04f3ch2a" path="res://zany-face-emoji-512x512-n8oce65h.png" id="2_l320x"]
+[ext_resource type="Texture2D" uid="uid://dvysp22gym34l" path="res://resources/0_Afghanistan.png" id="2_848hp"]
 
 [node name="Territory" type="Node2D"]
 script = ExtResource("1_jko04")
 
 [node name="TerritorySprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_l320x")
+texture = ExtResource("2_848hp")
 centered = false
+
+[node name="CollisionArea" type="Area2D" parent="."]
+
+[connection signal="input_event" from="CollisionArea" to="." method="_on_collision_area_input_event"]

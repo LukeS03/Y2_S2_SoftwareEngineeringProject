@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3 uid="uid://5kqn7uk5gkx8"]
+
+[ext_resource type="Script" path="res://src/MainMenu_Scene/MainMenu.cs" id="1_7j8la"]
+[ext_resource type="PackedScene" uid="uid://diuwxt3hix0q4" path="res://scenes/MainMenu_Player.tscn" id="2_2rr3l"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7j8la")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="GameTitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.364706)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 17
+theme_override_constants/shadow_outline_size = 20
+theme_override_font_sizes/font_size = 45
+text = "World Conquest"
+
+[node name="CapitalRiskOptionContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/CapitalRiskOptionContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Enable Capital Risk?
+"
+
+[node name="CapitalRiskCheckBox" type="CheckButton" parent="VBoxContainer/CapitalRiskOptionContainer"]
+layout_mode = 2
+
+[node name="AddPlayerBox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="AddPlayerLabel" type="Label" parent="VBoxContainer/AddPlayerBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Add Player (0/6)
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AddPlayersButton" type="Button" parent="VBoxContainer/AddPlayerBox"]
+layout_mode = 2
+text = "+
+"
+icon_alignment = 1
+
+[node name="PlayersBox" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Player1Box" parent="VBoxContainer/PlayersBox" instance=ExtResource("2_2rr3l")]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "START GAME"
+
+[connection signal="pressed" from="VBoxContainer/CapitalRiskOptionContainer/CapitalRiskCheckBox" to="." method="_on_Capital_Risk_Enabled"]

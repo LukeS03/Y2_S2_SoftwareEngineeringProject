@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://btunab5tfh2sw"]
+
+[ext_resource type="Script" path="res://src/UserInterface_Scene/UserInterfacePlayer.cs" id="1_f0maa"]
+
+[node name="Player1" type="VBoxContainer"]
+script = ExtResource("1_f0maa")
+
+[node name="PlayerLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+text = "Player 1
+"
+
+[node name="Tokens" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+text = "1"
+horizontal_alignment = 1

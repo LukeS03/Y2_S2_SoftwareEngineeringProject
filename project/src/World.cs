@@ -8,21 +8,29 @@ namespace WorldConquest;
 public partial class World : Node2D
 {
 	public List<Continent> Continents;
-
 	public List<Territory> Territories;
+
+	[Signal]
+	public delegate void InitialisedTerritoriesEventHandler();
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		//initialise directory paths
 		string configDir = "res://config/";
 		string continentsFile = configDir + "/Continents.xml";
 		string territoriesFile = configDir + "/Territories.xml";
 		string connectionsFile = configDir + "/Connections.xml";
+		
+		//initialise the board.
 		InitialiseContinents(continentsFile);
 		System.Console.WriteLine("finished initialising continents.");
 		InitialiseTerritories(territoriesFile);
 		System.Console.WriteLine("Finished initialising territories.");
 		InitialiseConnections(connectionsFile);
 		System.Console.WriteLine("Finished initialising connections.");
+		//EmitSignal(SignalName.InitialisedTerritories);
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,13 +38,19 @@ public partial class World : Node2D
 	{
 	}
 
-
+	//TODO: Set up error detection and handling for these methods.
+	
+	/// <summary>
+	/// Initialise continents from path. Must be called before initialising the 
+	/// </summary>
+	/// <param name="continentPath"></param>
+	/// <exception cref="Exception"></exception>
 	private void InitialiseContinents(string continentPath)
 	{
 		
 		this.Continents = new List<Continent>();
 		
-		//This parsing code has been acquired from https://docs.godotengine.org/en/stable/classes/class_xmlparser.html
+		//This parsing code is derived from https://docs.godotengine.org/en/stable/classes/class_xmlparser.html
 		var parser = new XmlParser();
 		parser.Open(continentPath);
 		parser.Read();
@@ -68,9 +82,12 @@ public partial class World : Node2D
 			
 
 		}
-		return;
 	}
 
+	/// <summary>
+	/// Initialises territories once continents have been initialised.
+	/// </summary>
+	/// <param name="territoryPath"></param>
 	private void InitialiseTerritories(string territoryPath)
 	{
 		
@@ -103,9 +120,12 @@ public partial class World : Node2D
 				
 			}
 		}
-		return;
 	}
 
+	/// <summary>
+	/// Initialises connections between territories once the continents and territories have been initialised.
+	/// </summary>
+	/// <param name="connectionsPath"></param>
 	private void InitialiseConnections(string connectionsPath)
 	{
 		var parser = new XmlParser();
@@ -130,7 +150,23 @@ public partial class World : Node2D
 					parser.Read();
 				}
 				Territories[territoryIndex].Initialise_Connections(this.Territories, connectionIndexes);
+				territoryIndex++;
 			}
 		}
+	}
+
+	/// <summary>
+	/// Returns a list of territories that have no owner set.
+	/// </summary>
+	/// <returns>A List of unclaimed territories.</returns>
+	public List<Territory> GetUnclaimedTerritories()
+	{
+		List<Territory> unclaimedTerritories = new List<Territory>();
+		foreach (var t in Territories)
+		{
+			if (t.Owner == null) unclaimedTerritories.Add(t);
+		}
+
+		return unclaimedTerritories;
 	}
 }

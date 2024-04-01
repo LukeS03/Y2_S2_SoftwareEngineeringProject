@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4jjc7o8j5mdr"]
+
+[ext_resource type="Script" path="res://src/UserInterface_Scene/UserInterface.cs" id="1_a7gap"]
+[ext_resource type="Script" path="res://src/UserInterface_Scene/TerritoryDataMenu.cs" id="1_j1xg3"]
+[ext_resource type="Texture2D" uid="uid://coj7agk1n6plk" path="res://resources/ButtonBoxTexture.png" id="2_7ketp"]
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_a7gap")
+
+[node name="TerritoryDataMenu" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 344.0
+offset_bottom = 223.0
+script = ExtResource("1_j1xg3")
+
+[node name="TitleContainer" type="HBoxContainer" parent="TerritoryDataMenu"]
+layout_mode = 2
+
+[node name="HideMenuButton" type="Button" parent="TerritoryDataMenu/TitleContainer"]
+layout_mode = 2
+text = "X"
+
+[node name="TerritoryNameAndOwner" type="Label" parent="TerritoryDataMenu/TitleContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Afghanistan: Unclaimed
+"
+
+[node name="ConnectionsHeaderLabel" type="Label" parent="TerritoryDataMenu"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Connections:"
+
+[node name="ConnectionsListLabel" type="Label" parent="TerritoryDataMenu"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+text = "• China"
+
+[node name="InfantryLabel" type="Label" parent="TerritoryDataMenu"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+text = "0 Tokens"
+
+[node name="ActionButton" type="Button" parent="TerritoryDataMenu"]
+layout_mode = 2
+theme_override_colors/icon_normal_color = Color(0.776471, 0.266667, 0.231373, 1)
+theme_override_colors/icon_pressed_color = Color(0.776471, 0.266667, 0.231373, 1)
+theme_override_colors/icon_hover_color = Color(0.776471, 0.266667, 0.231373, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.776471, 0.266667, 0.231373, 1)
+theme_override_colors/icon_focus_color = Color(0.776471, 0.266667, 0.231373, 1)
+theme_override_colors/icon_disabled_color = Color(0.776471, 0.266667, 0.231373, 1)
+text = "Placeholder :p"
+icon = ExtResource("2_7ketp")
+flat = true
+icon_alignment = 1
+
+[node name="BottomMenuBar" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 486.0
+offset_top = 599.0
+offset_right = 833.0
+offset_bottom = 665.0
+alignment = 1
+
+[node name="ActivePlayerLabel" type="Label" parent="BottomMenuBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Player Turn Placeholder Text"
+horizontal_alignment = 1
+
+[node name="ModeLabel" type="Label" parent="BottomMenuBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 16
+text = "Mode Label Placeholder Text"
+horizontal_alignment = 1
+
+[node name="PlayersHBox" type="HBoxContainer" parent="BottomMenuBar"]
+layout_mode = 2
+
+[connection signal="pressed" from="TerritoryDataMenu/TitleContainer/HideMenuButton" to="TerritoryDataMenu" method="_on_Hide_Menu_Button_Clicked"]
+[connection signal="pressed" from="TerritoryDataMenu/ActionButton" to="." method="OnDataMenuAction"]

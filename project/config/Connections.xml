@@ -14,4 +14,241 @@
     <Connection id="0" />
     <Connection id="10" />
 </Connections>
+<Connections id="2">
+    <Connection id="8"/>
+    <Connection id="1"/>
+    <Connection id="0"/>
+    <Connection id="6"/>
+</Connections>
+<Connections id="3">
+    <Connection id="7"/>
+    <Connection id="5"/>
+    <Connection id="11"/>
+    <Connection id="9"/>
+</Connections>
+<Connections id="4">
+    <Connection id="7"/>
+    <Connection id="5"/>
+</Connections>
+<Connection id="5">
+    <Connection id="4"/>
+    <Connection id="19"/>
+    <Connection id="11"/>
+    <Connection id="3"/>
+    <Connection id="7"/>
+</Connections>
+<Connections id="6">
+    <Connection id="2"/>
+    <Connection id="0"/>
+    <Connection id="17"/>
+    <Connection id="16"/>
+    <Connection id="34"/>
+    <Connection id="33"/>
+</Connections>
+<Connections id="7">
+    <Connection id="4"/>
+    <Connection id="5"/>
+    <Connection id="3"/>
+    <Connection id="9"/>
+    <Connection id="1"/>
+</Connections>
+<Connections id="8">
+    <Connection id="39"/>
+    <Connection id="1"/>
+    <Connection id="2"/>
+</Connections>
+<Connections id="9">
+    <Connection id="1"/>
+    <Connection id="7"/>
+    <Connection id="3"/>
+    <Connection id="11"/>
+    <Connection id="10"/>
+</Connections>
+<Connections id="10">
+    <Connection id="1"/>
+    <Connection id="9"/>
+    <Connection id="17"/>
+    <Connection id="0"/>
+</Connections>
+<Connectiosn id="11">
+    <Connection id="5"/>
+    <Connection id="3"/>
+    <Connection id="9"/>
+</Connections>
+<Connections id="12">
+    <Connection id="18"/>
+    <Connection id="14"/>
+    <Connection id="15"/>
+    <Connection id="13"/>
+</Connections>
+<Connections id="13">
+    <Connection id="12"/>
+    <Connection id="15"/>
+    <Connection id="23"/>
+</Connections>
+<Connections id="14">
+    <Connection id="15"/>
+    <Connection id="12"/>
+    <Connection id="18"/>
+    <Connection id="16"/>
+    <Connection id="17"/>
+</Connections>
+<Connections id="15">
+    <Connection id="14"/>
+    <Connection id="17"/>
+    <Connection id="13"/>
+    <Connection id="12"/>
+</Connections>
+<Connections id="16">
+    <Connection id="34"/>
+    <Connection id="6"/>
+    <Connection id="17"/>
+    <Connection id="18"/>
+    <Connection id="14"/>
+    <Connection id="36"/>
+</Connections>
+<Connections id="17">
+    <Connection id="16"/>
+    <Connection id="6"/>
+    <Connection id="0"/>
+    <Connection id="10"/>
+    <Connection id="15"/>
+    <Connection id="14"/>
+</Connections>
+<Connection id="18">
+    <Connection id="36"/>
+    <Connection id="16"/>
+    <Connection id="14"/>
+    <Connection id="12"/>
+</Connections>
+<Connections id="19">
+    <Connection id="5"/>
+    <Connection id="24"/>
+    <Connection id="20"/>
+</Connections>
+<Connections id="20">
+    <Connection id="27"/>
+    <Connection id="25"/>
+    <Connection id="24"/>
+    <Connection id="19"/>
+</Connections>
+<Connections id="21">
+    <Connection id="31"/>
+    <Connection id="22"/>
+    <Connection id="27"/>
+</Connections>
+<Connections id="22">
+    <Connection id="26"/>
+    <Connection id="25"/>
+    <Connection id="27"/>
+    <Connection id="21"/>
+</Connections>
+<Connections id="23">
+    <Connection id="13"/>
+    <Connection id="26"/>
+    <Connection id="25"/>
+    <Connection id="24"/>
+</Connections>
+<Connections id="24">
+    <Connection id="23"/>
+    <Connection id="25"/>
+    <Connection id="20"/>
+    <Connection id="19"/>
+</Connections>
+<Connections id="25">
+    <Connection id="23"/>
+    <Connection id="26"/>
+    <Connection id="22"/>
+    <Connection id="27"/>
+    <Connection id="20"/>
+    <Connection id="24"/>
+</Connections>
+<Connections id="26">
+    <Connection id="25"/>
+    <Connection id="23"/>
+    <Connection id="22"/>
+</Connections>
+<Connections id="27">
+    <Connection id="22"/>
+    <Connection id="25"/>
+    <Connection id="20"/>
+    <Connection id="21"/>
+</Connections>
+<Connections id="28">
+    <Connection id="29"/>
+    <Connection id="30"/>
+</Connections>
+<Connections id="29">
+    <Connection id="28"/>
+    <Connection id="30"/>
+    <Connection id="36"/>
+    <Connection id="31"/>
+</Connections>
+<Connections id="30">
+    <Connection id="28"/>
+    <Connection id="31"/>
+    <Connection id="29"/>
+</Connections>
+<Connections id="31 ">
+    <Connection id="30"/>
+    <Connection id="29"/>
+    <Connection id="21"/>
+</Connections>
+<Connections id="32">
+    <Connection id="37"/>
+    <Connection id="36"/>
+    <Connection id="33"/>
+    <Connection id="34"/>
+</Connections>
+<Connections id="33">
+    <Connection id="6"/>
+    <Connection id="34"/>
+    <Connection id="32"/>
+    <Connection id="37"/>
+    <Connection id="35"/>
+</Connections>
+<Connections id="34">
+    <Connection id="6"/>
+    <Connection id="16"/>
+    <Connection id="36"/>
+    <Connection id="33"/>
+</Connections>
+<Connections id="35">
+    <Connection id="37"/>
+    <Connection id="33"/>
+</Connections>
+<Connections id="36">
+    <Connection id="29"/>
+    <Connection id="18"/>
+    <Connection id="16"/>
+    <Connection id="34"/>
+    <Connection id="33"/>
+    <Connection id="32"/>
+</Connections>
+<Connections id="37">
+    <Connection id="35"/>
+    <Connection id="33"/>
+    <Connection id="32"/>
+</Connections>
+<Connections id="38">
+    <Connection id="40"/>
+    <Connection id="39"/>
+    <Connection id="41"/>
+</Connections>
+<Connections id="39">
+    <Connection id="8"/>
+    <Connection id="40"/>
+    <Connection id="38"/>
+    <Connection id="41"/>
+</Connections>
+<Connections id="40">
+    <Connection id="39"/>
+    <Connection id="41"/>
+    <Connection id="38"/>
+</Connections>
+<Connections id="41 ">
+    <Connection id="38"/>
+    <Connection id="39"/>
+    <Connection id="40"/>
+</Connections>
 </ConnectionsRoot>
