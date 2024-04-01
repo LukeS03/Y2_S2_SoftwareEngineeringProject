@@ -17,7 +17,14 @@ offset_right = 344.0
 offset_bottom = 223.0
 script = ExtResource("1_j1xg3")
 
-[node name="TerritoryNameAndOwner" type="Label" parent="TerritoryDataMenu"]
+[node name="TitleContainer" type="HBoxContainer" parent="TerritoryDataMenu"]
+layout_mode = 2
+
+[node name="HideMenuButton" type="Button" parent="TerritoryDataMenu/TitleContainer"]
+layout_mode = 2
+text = "X"
+
+[node name="TerritoryNameAndOwner" type="Label" parent="TerritoryDataMenu/TitleContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.607843, 0.607843, 0.607843, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -78,4 +85,5 @@ horizontal_alignment = 1
 [node name="PlayersHBox" type="HBoxContainer" parent="BottomMenuBar"]
 layout_mode = 2
 
+[connection signal="pressed" from="TerritoryDataMenu/TitleContainer/HideMenuButton" to="TerritoryDataMenu" method="_on_Hide_Menu_Button_Clicked"]
 [connection signal="pressed" from="TerritoryDataMenu/ActionButton" to="." method="OnDataMenuAction"]

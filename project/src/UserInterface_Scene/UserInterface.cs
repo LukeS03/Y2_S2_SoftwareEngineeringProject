@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Godot;
+using WorldConquest.UserInterface_Scene;
 
-namespace WorldConquest.user_interface_scene;
+namespace WorldConquest.UserInterface_Scene;
 
 public partial class UserInterface : Control
 {
@@ -21,6 +22,7 @@ public partial class UserInterface : Control
 	{
 		this.TerritoryMenu = this.GetNode<TerritoryDataMenu>("TerritoryDataMenu");
 		this._modeLabel = this.GetNode<Label>("BottomMenuBar/ModeLabel");
+		this.TerritoryMenu.Visible = false; // hide the territory data menu until a territory is clicked.
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,7 +37,8 @@ public partial class UserInterface : Control
 
 	public void OnDataMenuAction()
 	{
-		EmitSignal(SignalName.DataMenuAction);
+		EmitSignal(UserInterface.SignalName.DataMenuAction);
+		this.TerritoryMenu.Visible = false;
 	}
 
 	public void InitialisePlayers(List<Player> players)

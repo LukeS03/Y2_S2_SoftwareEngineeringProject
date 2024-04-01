@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.Versioning;
 using Godot;
+using WorldConquest.UserInterface_Scene;
 
 namespace WorldConquest;
 
@@ -13,13 +14,13 @@ public partial class BoardRoot : Node2D
 	public List<Player> Players;
 	public Player CurrentTurn;
 	public World GameWorld;
-	public user_interface_scene.UserInterface Gui;
+	public UserInterface Gui;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		this.GameWorld = this.GetNode<World>("World");
-		this.Gui = this.GetNode<user_interface_scene.UserInterface>("UserInterface");
+		this.Gui = this.GetNode<UserInterface>("UserInterface");
 		this.Players = new List<Player>();
 
 		/*This code is invalid and the signal will be removed. Children are initialised before their parents and therefore

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace WorldConquest.user_interface_scene;
+namespace WorldConquest.UserInterface_Scene;
 
 public partial class UserInterfacePlayer : VBoxContainer
 {
