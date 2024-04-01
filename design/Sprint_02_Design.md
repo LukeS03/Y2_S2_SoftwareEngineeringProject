@@ -111,10 +111,16 @@ flowchart TB
 ```
 
 ## Process for Selecting a Territory
-1. When a territory is moused over, it is brightened slightly. This is handled node-side by the Territory.
-2. When a Territory is then clicked, it darkens itself and a signal is sent.
-3. This signal is handled by the UserInterface.
-4. The UserInterface displays the currently selected territory.
+```mermaid
+flowchart TB
+    a["The player agent clicks on a territory."]
+    b["The territory sends a signal `TerritoryClicked(Territory territory)` to the BoardRoot."]
+    c["BoardRoot handles the signal, passing the clicked territory to the UserInterface's `OnTerritoryClicked` method."]
+    d["The UserInterface passes the clicked Territory object and the current game state to the TerritoryDataMenu."]
+    e["The TerritoryDataMenu shows information about the clicked territory."]
+
+    a-->b-->c-->d-->e
+```
 
 ## Process for player interaction in the Claim Stage.
 ```mermaid
