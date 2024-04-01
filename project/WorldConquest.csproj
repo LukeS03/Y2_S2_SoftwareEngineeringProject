@@ -5,4 +5,10 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="src\user_interface_scene\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="src\user_interface_scene\**" />
+  </ItemGroup>
 </Project>
