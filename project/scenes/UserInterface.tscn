@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4jjc7o8j5mdr"]
 
-[ext_resource type="Script" path="res://src/user_interface_scene/UserInterface.cs" id="1_a7gap"]
-[ext_resource type="Script" path="res://src/user_interface_scene/TerritoryDataMenu.cs" id="1_j1xg3"]
+[ext_resource type="Script" path="res://src/UserInterface_Scene/UserInterface.cs" id="1_a7gap"]
+[ext_resource type="Script" path="res://src/UserInterface_Scene/TerritoryDataMenu.cs" id="1_j1xg3"]
 [ext_resource type="Texture2D" uid="uid://coj7agk1n6plk" path="res://resources/ButtonBoxTexture.png" id="2_7ketp"]
 
 [node name="UserInterface" type="Control"]

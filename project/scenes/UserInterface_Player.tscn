@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://btunab5tfh2sw"]
 
-[ext_resource type="Script" path="res://src/user_interface_scene/UserInterfacePlayer.cs" id="1_f0maa"]
+[ext_resource type="Script" path="res://src/UserInterface_Scene/UserInterfacePlayer.cs" id="1_f0maa"]
 
 [node name="Player1" type="VBoxContainer"]
 script = ExtResource("1_f0maa")

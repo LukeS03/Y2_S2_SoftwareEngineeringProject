@@ -4,7 +4,7 @@ using Godot;
 
 namespace WorldConquest;
 
-public partial class root : Node2D
+public partial class BoardRoot : Node2D
 {
 	private int _currentPlayerIndex = -1;
 	private Territory _territoryBuffer;
@@ -77,7 +77,7 @@ public partial class root : Node2D
 		}
 		
 		this.Gui.InitialisePlayers(Players);
-		GameTransitionLoop();
+		//GameTransitionLoop();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

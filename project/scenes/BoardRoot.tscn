@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cb5p8fi3ykflh"]
+
+[ext_resource type="Script" path="res://src/BoardRoot.cs" id="1_btlo2"]
+[ext_resource type="PackedScene" uid="uid://c4jjc7o8j5mdr" path="res://scenes/UserInterface.tscn" id="2_3yqob"]
+[ext_resource type="PackedScene" uid="uid://50npwhnh3o85" path="res://scenes/World.tscn" id="3_hgwur"]
+
+[node name="BoardRoot" type="Node2D"]
+script = ExtResource("1_btlo2")
+
+[node name="UserInterface" parent="." instance=ExtResource("2_3yqob")]
+z_index = 1
+
+[node name="World" parent="." instance=ExtResource("3_hgwur")]
