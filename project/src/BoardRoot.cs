@@ -178,7 +178,6 @@ public partial class BoardRoot : Node2D
 	/// </summary>
 	private void StartClaimTerritories()
 	{
-		this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
 		this.Gui.CurrentTerritory.SetTerritoryOwner(this.CurrentTurn);
 		this.Gui.CurrentTerritory.Tokens = 1;
 		this.CurrentTurn.Tokens -= 1;
@@ -191,6 +190,10 @@ public partial class BoardRoot : Node2D
 	/// </summary>
 	private void StartFortifyTerritories()
 	{
+		this.Gui.CurrentTerritory.Tokens += 1;
+		this.CurrentTurn.Tokens -= 1;
+		this.Gui.UpdatePlayersAvailableTokens();
+		TurnTransition();
 	}
 	
 }

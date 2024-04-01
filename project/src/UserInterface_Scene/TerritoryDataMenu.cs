@@ -25,7 +25,7 @@ public partial class TerritoryDataMenu : VBoxContainer
     }
 
     /// <summary>
-    /// Function written by Al-Doukh
+    /// Function written by Al-Doukh.
     /// Called when a territory is clicked on. Views details about that territory and prompts the user to take an action on it.
     /// </summary>
     /// <param name="territory"></param>

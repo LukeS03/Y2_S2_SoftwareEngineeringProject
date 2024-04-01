@@ -207,6 +207,16 @@ flowchart TB
 
 ## Design Notes & Issues
 * Originally the `TerritoryClicked(Territory territory)` signal was to be handled directly by the User Interface. This was not possible, because it would have required finding each territory within the UserInterface class, and connecting each individual signal, which would have been problematic. Instead, the `TerritoryClicked(Territory territory)` signal will be handled by the BoardRoot, which will then set the `CurrentTerritory` attribute of the UserInterface. A setter method will be set up to update the Territory Data menu and change it's position relative to the mouse.
-* There is a bug where hovering territories seems to make them invisible.
 * Originally a signal called `InitialisedTerritories(List<Territory> territories)` was to be emitted once the continents, territories and connections were all initialised. This signal was redundant as Godot initialises children first before their parent nodes. 
 * There were originally going to be two signals sent by the UserInterface called `StartPlayerClaimedTerritory(Territory territory)` and `StartPlayerFortifiedTerritory(Territory territory, int tokens)`. They were scapped in favour of the signal `DataMenuActionEventHandler`.
+
+## Tasks carried over to the next sprint:
+1. Implement a main menu system
+2. Polish the user interface up a bit, make the Territory Data Menu appear next to the mouse-click.
+3. Update some of the diagrams in this document to reflect changes made during coding.
+4. Deal with the fact that some attribute names for classes do not necesserily reflect their name in the class diagram.
+5. Implement a method of controlling the CPU players.
+6. There seems to be a bug in the way that territory connections are loaded. This needs to be fixed.
+7. Load the background from file via the World class instead of having it defined in the Godot scene.
+8. Update the background image to show connections between continents.
+9. Add a GUI element to show what tokens are placed on each territory without having to click on them. (This will be a little tedious to be frank.)
