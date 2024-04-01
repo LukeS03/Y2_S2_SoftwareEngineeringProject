@@ -19,6 +19,7 @@ public partial class Territory : Node2D
 	public Sprite2D TerritorySprite;
 	public Area2D CollisionArea;
 	public new Player Owner;
+	public int Tokens = 0;
 	
 	/* Signals */
 	
@@ -41,6 +42,7 @@ public partial class Territory : Node2D
 	/// <param name="position"></param>
 	public void Initialise_Territory(int identifier, string territoryName, Continent continent, String texturePath, Vector2 position)
 	{
+		
 		this.Identifier			= identifier;
 		this.TerritoryName		= territoryName;
 		this.TerritoryContinent = continent;
@@ -49,9 +51,9 @@ public partial class Territory : Node2D
 
 		/* Loads the texture for the territory. */
 		this.Name    = this.TerritoryName;
-		var theSprite  = this.GetNode<Sprite2D>("TerritorySprite");
+		this.TerritorySprite  = this.GetNode<Sprite2D>("TerritorySprite");
 		var newTexture = ResourceLoader.Load<CompressedTexture2D>(texturePath);
-		theSprite.Texture = newTexture;
+		TerritorySprite.Texture = newTexture;
 		
 		/* Initialise collision. */
 		this.CollisionArea = this.GetNode<Area2D>("CollisionArea");
@@ -103,7 +105,7 @@ public partial class Territory : Node2D
 	/// </summary>
 	void Mouse_Entered_Area()
 	{
-		this.Modulate = _hoveredTint;
+		//this.Modulate = _hoveredTint;
 	}
 
 	/// <summary>
@@ -111,7 +113,7 @@ public partial class Territory : Node2D
 	/// </summary>
 	void Mouse_Exited_Area()
 	{
-		this.Modulate = _unselectedTint;
+		//this.Modulate = _unselectedTint;
 	}
 	
 	/// <summary>
@@ -127,9 +129,22 @@ public partial class Territory : Node2D
 		{
 			// Using '1' directly for the left mouse button
 			GD.Print("Clicked " + TerritoryName + "!");
-			Modulate = _selectedTint;
+			//Modulate = _selectedTint;
 			EmitSignal(SignalName.TerritoryClicked, this);
 		}
+	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="p"></param>
+	public void SetTerritoryOwner(Player p)
+	{
+		if(this.Owner != null) this.Owner.ControlledTerritories.Remove(this);
+		this.Tokens = 0;
+		p.ControlledTerritories.Add(this);
+		this.Owner = p;
+		this.TerritorySprite.Modulate = p.PlayerColour;
 	}
 	
 	// Called when the node enters the scene tree for the first time.

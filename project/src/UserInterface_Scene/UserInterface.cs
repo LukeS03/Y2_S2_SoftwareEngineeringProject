@@ -32,7 +32,7 @@ public partial class UserInterface : Control
 
 	public void OnTerritoryClicked()
 	{
-		this.TerritoryMenu.View_Territory(CurrentTerritory, _gameState);
+		this.TerritoryMenu.View_Territory(CurrentTerritory, _gameState, _currentTurn);
 	}
 
 	public void OnDataMenuAction()
@@ -70,5 +70,13 @@ public partial class UserInterface : Control
 		}
 
 		this._modeLabel.Text = newText;
+	}
+
+	public void UpdatePlayersAvailableTokens()
+	{
+		foreach (UserInterfacePlayer userInterfacePlayer in PlayersList)
+		{
+			userInterfacePlayer.PlayerTokensLabel.Text = "Tokens: " + userInterfacePlayer.Player.Tokens.ToString();
+		}
 	}
 }

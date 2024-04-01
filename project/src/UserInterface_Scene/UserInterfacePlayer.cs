@@ -4,9 +4,9 @@ namespace WorldConquest.UserInterface_Scene;
 
 public partial class UserInterfacePlayer : VBoxContainer
 {
-	private Label PlayerNameLabel;
-	private Label PlayerTokensLabel;
-	private Player player;
+	public Label PlayerNameLabel;
+	public Label PlayerTokensLabel;
+	public Player player;
 
 	public Player Player
 	{

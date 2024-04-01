@@ -38,8 +38,8 @@ public partial class BoardRoot : Node2D
 		 * TBD: Remove once the main menu is set up
 		 */
 
-		var color1 = new Color(Colors.Aqua);
-		var color2 = new Color(Colors.Lavender);
+		var color1 = new Color(1,0,0);
+		var color2 = new Color(0,1,0);
 		Player samplePlayer1 = new Player("Sample Player One", color1, false);
 		this.Players.Add(samplePlayer1);
 
@@ -179,8 +179,10 @@ public partial class BoardRoot : Node2D
 	private void StartClaimTerritories()
 	{
 		this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
-		this.Gui.CurrentTerritory.Owner = this.CurrentTurn;
-		this.CurrentTurn.ControlledTerritories.Add(this.Gui.CurrentTerritory);
+		this.Gui.CurrentTerritory.SetTerritoryOwner(this.CurrentTurn);
+		this.Gui.CurrentTerritory.Tokens = 1;
+		this.CurrentTurn.Tokens -= 1;
+		this.Gui.UpdatePlayersAvailableTokens();
 		TurnTransition();
 	}
 

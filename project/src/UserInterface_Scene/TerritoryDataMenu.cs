@@ -7,12 +7,15 @@ public partial class TerritoryDataMenu : VBoxContainer
     private Label territoryNameAndOwnerLabel;
     private Label connectionsHeaderLabel;
     private Label connectionsListLabel;
-    public GameStatus CurrentState;
+    private Label infantryLabel;
+    private Button actionButton;
 
     public override void _Ready()
     {
         territoryNameAndOwnerLabel = GetNode<Label>("TitleContainer/TerritoryNameAndOwner");
         connectionsListLabel = GetNode<Label>("ConnectionsListLabel");
+        this.actionButton = GetNode<Button>("ActionButton");
+        this.infantryLabel = GetNode<Label>("InfantryLabel");
     }
 
     public void _on_Hide_Menu_Button_Clicked()
@@ -26,7 +29,7 @@ public partial class TerritoryDataMenu : VBoxContainer
     /// </summary>
     /// <param name="territory"></param>
     /// <param name="currentState"></param>
-    public void View_Territory(Territory territory, GameStatus currentState)
+    public void View_Territory(Territory territory, GameStatus currentState, Player currentPlayer)
     {
         this.Visible = true;
         string NewTerritoryNameAndOwnerLabelText = territory.TerritoryName + " - Owner: " + (territory.Owner != null ? territory.Owner.Name : "None");
@@ -38,5 +41,17 @@ public partial class TerritoryDataMenu : VBoxContainer
             connectionsNames += connectedTerritory.TerritoryName + ", ";
         }
         connectionsListLabel.Text = connectionsNames.TrimEnd(new char[] { ',', ' ' });
+
+        this.infantryLabel.Text = territory.Tokens.ToString();
+
+        this.actionButton.Disabled = false;
+        if (currentState == GameStatus.StartClaimTerritories && territory.Owner != null)
+        {
+            this.actionButton.Disabled = true;
+        }
+        else if (currentState == GameStatus.StartFortifyTerritories && territory.Owner != currentPlayer)
+        {
+            this.actionButton.Disabled = true;
+        }
     }
 }
