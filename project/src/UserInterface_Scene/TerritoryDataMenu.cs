@@ -43,7 +43,7 @@ public partial class TerritoryDataMenu : VBoxContainer
         }
         connectionsListLabel.Text = connectionsNames.TrimEnd(new char[] { ',', ' ' });
 
-        this.infantryLabel.Text = territory.Tokens.ToString();
+        this.infantryLabel.Text = "Tokens:" + territory.Tokens.ToString();
 
         this.actionButton.Disabled = false;
 
@@ -51,11 +51,11 @@ public partial class TerritoryDataMenu : VBoxContainer
         {
             case GameStatus.StartClaimTerritories:
                 this.actionButton.Text = "Claim";
-                if(this.Owner == null) this.actionButton.Disabled = true;
+                if(territory.Owner != null) {this.actionButton.Disabled = true;}
                 break;
             case GameStatus.StartFortifyTerritories:
                 this.actionButton.Text = "Fortify";
-                if(territory.Owner != currentPlayer) this.actionButton.Disabled = true;
+                if(territory.Owner != currentPlayer) {this.actionButton.Disabled = true;}
                 break;
             default:
                 Console.Out.WriteLine("https://www.youtube.com/watch?v=j5BXUF_4PP0");
