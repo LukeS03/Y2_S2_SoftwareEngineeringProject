@@ -116,14 +116,26 @@ flowchart TB
 3. This signal is handled by the UserInterface.
 4. The UserInterface displays the currently selected territory.
 
-## Process for first stage (Claiming Territories)
-1. Board selects the first player
-2. Board sets the UserInterface scene's `CurrentTurn` to the first player, and `CurrentMode` to `StartClaimTerritories`
-3. UserInterface waits for the player to click a territory.
-4. UserInterface displays territory details, with button allowing player to claim the territory.
-5. If the player clicks the button, the UserInterface sends a signal with the Territory claimed.
-6. The Board handles the signal and assigns the territory to the player.
-7. Select next player with tokens left
+## Process for player interaction in the Claim Stage.
+```mermaid
+flowchart TB
+    subgraph "BoardRoot"
+        a["BoardRoot selects the next player"]
+        b["BoardRoot selects the next turn."]
+        c["BoardRoot sets the UserInterface's CurrentTurn and CurrentMode values."]
+        g["The BoardRoot receives the signal `DataActionEvent` from the UserInterface."]
+        h["The BoardRoot assigns the territory to that user, or if it is in the StartPhaseFortifyTerritories stage, it adds one troop to that territory."]
+    end
+    subgraph "UserInterface"
+        d["The UserInterface prompts the player to make a move."]
+        f["The UserInterface sends a signal `DataActionEvent`."]
+    end
+    subgraph "user agent"
+        e["The player selects a territory and clicks the button in the Territory Data menu."]
+    end
+
+    a --> b --> c --> d --> e --> f --> g --> h --> a
+```
 
 ## List of Signals
 * **Territory**
