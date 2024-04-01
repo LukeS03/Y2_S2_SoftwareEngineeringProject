@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace WorldConquest.UserInterface_Scene;
@@ -45,13 +46,20 @@ public partial class TerritoryDataMenu : VBoxContainer
         this.infantryLabel.Text = territory.Tokens.ToString();
 
         this.actionButton.Disabled = false;
-        if (currentState == GameStatus.StartClaimTerritories && territory.Owner != null)
+
+        switch (currentState)
         {
-            this.actionButton.Disabled = true;
-        }
-        else if (currentState == GameStatus.StartFortifyTerritories && territory.Owner != currentPlayer)
-        {
-            this.actionButton.Disabled = true;
+            case GameStatus.StartClaimTerritories:
+                this.actionButton.Text = "Claim";
+                if(this.Owner == null) this.actionButton.Disabled = true;
+                break;
+            case GameStatus.StartFortifyTerritories:
+                this.actionButton.Text = "Fortify";
+                if(territory.Owner != currentPlayer) this.actionButton.Disabled = true;
+                break;
+            default:
+                Console.Out.WriteLine("https://www.youtube.com/watch?v=j5BXUF_4PP0");
+                break;
         }
     }
 }

@@ -7,9 +7,9 @@ namespace WorldConquest;
 public partial class Territory : Node2D
 {
 	/* Colour values for modulating when the territory is highlighted. */
-	private static Color _unselectedTint = new Color(0f,0f,0f, 0f);
-	private static Color _selectedTint   = new Color(255f, 255f, 255f, 0.8f);
-	private static Color _hoveredTint    = new Color(128f, 128f, 128f, 0.5f);
+	private static Color _unselectedTint = new Color(1f,1f,1f);
+	private static Color _selectedTint   = new Color(0.5f,0.5f,0.5f,1f);
+	private static Color _hoveredTint    = new Color(1f,1f,1f, 0.8f);
 	
 	/* Attributes */
 	public int Identifier;
@@ -105,7 +105,7 @@ public partial class Territory : Node2D
 	/// </summary>
 	void Mouse_Entered_Area()
 	{
-		//this.Modulate = _hoveredTint;
+		this.Modulate = _hoveredTint;
 	}
 
 	/// <summary>
@@ -113,7 +113,8 @@ public partial class Territory : Node2D
 	/// </summary>
 	void Mouse_Exited_Area()
 	{
-		//this.Modulate = _unselectedTint;
+		if (Owner != null) this.Modulate = Owner.PlayerColour;
+		else this.Modulate = _unselectedTint;
 	}
 	
 	/// <summary>
@@ -129,7 +130,7 @@ public partial class Territory : Node2D
 		{
 			// Using '1' directly for the left mouse button
 			GD.Print("Clicked " + TerritoryName + "!");
-			//Modulate = _selectedTint;
+			Modulate = _selectedTint;
 			EmitSignal(SignalName.TerritoryClicked, this);
 		}
 	}
