@@ -67,19 +67,30 @@ icon_alignment = 1
 
 [node name="BottomMenuBar" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 474.0
-offset_top = 614.0
-offset_right = 800.0
-offset_bottom = 676.0
+offset_left = 486.0
+offset_top = 599.0
+offset_right = 833.0
+offset_bottom = 665.0
 alignment = 1
 
-[node name="ModeLabel" type="Label" parent="BottomMenuBar"]
+[node name="ActivePlayerLabel" type="Label" parent="BottomMenuBar"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
-text = "Player 1: Claim
-"
+text = "Player Turn Placeholder Text"
+horizontal_alignment = 1
+
+[node name="ModeLabel" type="Label" parent="BottomMenuBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 16
+text = "Mode Label Placeholder Text"
 horizontal_alignment = 1
 
 [node name="PlayersHBox" type="HBoxContainer" parent="BottomMenuBar"]

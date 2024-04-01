@@ -13,6 +13,7 @@ public partial class UserInterface : Control
 	public TerritoryDataMenu TerritoryMenu;
 	public List<UserInterfacePlayer> PlayersList;
 	private Label _modeLabel;
+	private Label _activePlayerLabel;
 
 	[Signal]
 	public delegate void DataMenuActionEventHandler();
@@ -23,6 +24,7 @@ public partial class UserInterface : Control
 		this.TerritoryMenu = this.GetNode<TerritoryDataMenu>("TerritoryDataMenu");
 		this._modeLabel = this.GetNode<Label>("BottomMenuBar/ModeLabel");
 		this.TerritoryMenu.Visible = false; // hide the territory data menu until a territory is clicked.
+		this._activePlayerLabel = this.GetNode<Label>("BottomMenuBar/ActivePlayerLabel");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,19 +59,22 @@ public partial class UserInterface : Control
 	{
 		this._currentTurn = player;
 		this._gameState   = state;
-		string newText;
-		newText = player.Name + ": ";
+		
+		
+		string PlayerPromptText = "";
 		switch (state)
 		{
 			case GameStatus.StartClaimTerritories:
-				newText += "Select an unclaimed territory to claim.";
+				PlayerPromptText += "Select an unclaimed territory to claim.";
 				break;
 			case GameStatus.StartFortifyTerritories:
-				newText += "Select one of your territories to fortify with one troop.";
+				PlayerPromptText += "Select one of your territories to fortify with one troop.";
 				break;
 		}
 
-		this._modeLabel.Text = newText;
+		this._modeLabel.Text = PlayerPromptText;
+		this._activePlayerLabel.Text = player.Name + "'s turn";
+		this._activePlayerLabel.Modulate = player.PlayerColour;
 	}
 
 	public void UpdatePlayersAvailableTokens()

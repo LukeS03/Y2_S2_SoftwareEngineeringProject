@@ -16,8 +16,8 @@ public partial class UserInterfacePlayer : VBoxContainer
 			this.player = value;
 			this.PlayerNameLabel.Text = this.player.Name;
 			this.PlayerTokensLabel.Text = this.player.Tokens.ToString();
-			this.PlayerNameLabel.AddThemeColorOverride("1",this.player.PlayerColour);
-			this.PlayerTokensLabel.AddThemeColorOverride("1",this.player.PlayerColour);
+			this.PlayerNameLabel.AddThemeColorOverride("font_color",this.player.PlayerColour);
+			this.PlayerTokensLabel.AddThemeColorOverride("font_color",this.player.PlayerColour);
 		}
 	}
 	// Called when the node enters the scene tree for the first time.
