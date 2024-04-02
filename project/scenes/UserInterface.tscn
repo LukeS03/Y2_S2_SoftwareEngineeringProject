@@ -67,11 +67,15 @@ icon_alignment = 1
 
 [node name="BottomMenuBar" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 486.0
-offset_top = 599.0
-offset_right = 833.0
-offset_bottom = 665.0
+offset_left = 487.0
+offset_top = 557.0
+offset_right = 834.0
+offset_bottom = 658.0
 alignment = 1
+
+[node name="EndTurnButton" type="Button" parent="BottomMenuBar"]
+layout_mode = 2
+text = "End Turn"
 
 [node name="ActivePlayerLabel" type="Label" parent="BottomMenuBar"]
 layout_mode = 2
