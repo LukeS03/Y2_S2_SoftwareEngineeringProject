@@ -13,44 +13,61 @@ using Godot;
  */
 namespace WorldConquest.MainMenu_Scene;
 
+using System.Collections.Generic;
+
 public partial class MainMenu : Control
 {
-	public bool IsCapitalRisk;
-	public List<Player> Players;
+	public bool IsCapitalRisk = false;
+	public List<Control> Players = new List<Control>();
 	public static Color[] PlayerColours;
-	
-	// Called when the node enters the scene tree for the first time.
+
+	private Button addPlayersButton;
+	private VBoxContainer playersBox;
+
 	public override void _Ready()
 	{
+		InitPlayerColours();
+
+		addPlayersButton = GetNode<Button>("AddPlayersButton");
+		playersBox = GetNode<VBoxContainer>("PlayersBox");
 	}
 
 	private static void InitPlayerColours()
 	{
-		PlayerColours = new Color[6];
-		PlayerColours[0] = new Color(Colors.Red);
-		PlayerColours[1] = new Color(Colors.Blue);
-		PlayerColours[3] = new Color(Colors.Green);
-		PlayerColours[4] = new Color(Colors.Purple);
-		PlayerColours[5] = new Color(Colors.Orange);
+		PlayerColours = new Color[6]
+		{
+			new Color(Colors.Red),
+			new Color(Colors.Blue),
+			new Color(Colors.Yellow),
+			new Color(Colors.Green),
+			new Color(Colors.Purple),
+			new Color(Colors.Orange)
+		};
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	public void _on_Capital_Risk_Enabled(bool isPressed)
 	{
-	}
-
-	public void _on_Capital_Risk_Enabled()
-	{
-		//Called when the "CapitalRiskCheckBox" is clicked.	
+		IsCapitalRisk = isPressed;
 	}
 
 	public void _on_Add_Players_Button_Clicked()
 	{
-		//Called when "AddPlayersButton" is clicked.
-	}
+		if (Players.Count < 6)
+		{
+			PackedScene playerScene = ResourceLoader.Load<PackedScene>("res://MainMenu_Player.tscn");
+			MainMenuPlayer playerInstance = playerScene.Instantiate<MainMenuPlayer>();
 
-	public void _on_Start_Button_Clicked()
-	{
-		// Called when "StartButton" is clicked.
+
+			playerInstance.Call("set_player_name", $"Player {Players.Count + 1}");
+			playerInstance.Call("set_player_ai_status", false);
+
+			playersBox.AddChild(playerInstance);
+			Players.Add(playerInstance);
+
+			if (Players.Count >= 6)
+			{
+				addPlayersButton.Disabled = true;
+			}
+		}
 	}
 }
