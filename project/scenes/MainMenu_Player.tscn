@@ -23,3 +23,5 @@ horizontal_alignment = 2
 [node name="CheckButton" type="CheckButton" parent="."]
 layout_mode = 2
 alignment = 2
+
+[connection signal="toggled" from="CheckButton" to="." method="_on_IsAIPlayerButton_toggled"]

@@ -21,7 +21,6 @@ public partial class BoardRoot : Node2D
 	{
 		this.GameWorld = this.GetNode<World>("World");
 		this.Gui = this.GetNode<UserInterface>("UserInterface");
-		this.Players = new List<Player>();
 
 		/*This code is invalid and the signal will be removed. Children are initialised before their parents and therefore
 		 we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
@@ -37,7 +36,7 @@ public partial class BoardRoot : Node2D
 		 * SAMPLE PLAYERS.
 		 * TBD: Remove once the main menu is set up
 		 */
-
+		/*
 		var color1 = new Color(1,0,0);
 		var color2 = new Color(0,1,0);
 		Player samplePlayer1 = new Player("Sample Player One", color1, false);
@@ -45,7 +44,7 @@ public partial class BoardRoot : Node2D
 
 		Player samplePlayer2 = new Player("Sample Player Two", color2, true);
 		this.Players.Add(samplePlayer2);
-
+		*/
 
 		int tokensPerPlayer = 9001;
 		switch (Players.Count)

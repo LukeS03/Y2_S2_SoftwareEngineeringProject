@@ -18,7 +18,7 @@ using System.Collections.Generic;
 public partial class MainMenu : Control
 {
 	public bool IsCapitalRisk = false;
-	public List<Control> Players = new List<Control>();
+	public List<Player> Players = new List<Player>();
 	public static Color[] PlayerColours;
 
 	private Button addPlayersButton;
@@ -27,9 +27,10 @@ public partial class MainMenu : Control
 	public override void _Ready()
 	{
 		InitPlayerColours();
+		this.GetNode<Button>("VBoxContainer/StartButton").Disabled = true;
 
-		addPlayersButton = GetNode<Button>("AddPlayersButton");
-		playersBox = GetNode<VBoxContainer>("PlayersBox");
+		addPlayersButton = this.GetNode<Button>("VBoxContainer/AddPlayerBox/AddPlayersButton");
+		playersBox = this.GetNode<VBoxContainer>("VBoxContainer/PlayersBox");
 	}
 
 	private static void InitPlayerColours()
@@ -52,22 +53,34 @@ public partial class MainMenu : Control
 
 	public void _on_Add_Players_Button_Clicked()
 	{
+		if(Players.Count + 1 >= 2) this.GetNode<Button>("VBoxContainer/StartButton").Disabled = false;
 		if (Players.Count < 6)
 		{
-			PackedScene playerScene = ResourceLoader.Load<PackedScene>("res://MainMenu_Player.tscn");
+			PackedScene playerScene = ResourceLoader.Load<PackedScene>("res://scenes/MainMenu_Player.tscn");
 			MainMenuPlayer playerInstance = playerScene.Instantiate<MainMenuPlayer>();
-
-
-			playerInstance.Call("set_player_name", $"Player {Players.Count + 1}");
-			playerInstance.Call("set_player_ai_status", false);
-
 			playersBox.AddChild(playerInstance);
-			Players.Add(playerInstance);
+
+			string playerName = "Player " + (Players.Count + 1).ToString();
+			var newPlayer = new Player(playerName, PlayerColours[Players.Count], false);
+
+			playerInstance.ThePlayer = newPlayer;
+			playerInstance.playerNo = Players.Count + 1;
+			Players.Add(playerInstance.ThePlayer);
 
 			if (Players.Count >= 6)
 			{
 				addPlayersButton.Disabled = true;
 			}
 		}
+	}
+	
+	public void _on_Start_Button_Clicked()
+	{
+		var gameScene = ResourceLoader.Load<PackedScene>("res://scenes/BoardRoot.tscn");
+		var gameSceneInstance = gameScene.Instantiate<BoardRoot>();
+		gameSceneInstance.Players = this.Players;
+		GetTree().Root.AddChild(gameSceneInstance);
+		GetTree().Root.RemoveChild(GetTree().Root.GetNode<Node>("MainMenu"));
+
 	}
 }

@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://5kqn7uk5gkx8"]
+[gd_scene load_steps=2 format=3 uid="uid://5kqn7uk5gkx8"]
 
 [ext_resource type="Script" path="res://src/MainMenu_Scene/MainMenu.cs" id="1_7j8la"]
-[ext_resource type="PackedScene" uid="uid://diuwxt3hix0q4" path="res://scenes/MainMenu_Player.tscn" id="2_2rr3l"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -71,11 +70,10 @@ icon_alignment = 1
 [node name="PlayersBox" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Player1Box" parent="VBoxContainer/PlayersBox" instance=ExtResource("2_2rr3l")]
-layout_mode = 2
-
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "START GAME"
 
-[connection signal="pressed" from="VBoxContainer/CapitalRiskOptionContainer/CapitalRiskCheckBox" to="." method="_on_Capital_Risk_Enabled"]
+[connection signal="toggled" from="VBoxContainer/CapitalRiskOptionContainer/CapitalRiskCheckBox" to="." method="_on_Capital_Risk_Enabled"]
+[connection signal="pressed" from="VBoxContainer/AddPlayerBox/AddPlayersButton" to="." method="_on_Add_Players_Button_Clicked"]
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_Start_Button_Clicked"]
