@@ -3,5 +3,6 @@
 public enum GameStatus
 {
     StartClaimTerritories,
-    StartFortifyTerritories
+    StartFortifyTerritories,
+    FortifyTerritoriesStage
 }

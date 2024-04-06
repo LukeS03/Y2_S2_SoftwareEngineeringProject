@@ -99,6 +99,7 @@ classDiagram
     * `TerritoryClicked(Territory territory)`: Indicates that a Territory has been clicked on the board. This signal is intended to be handled by the BoardRoot. Once this signal is recieved by the BoardRoot, the BoardRoot will change the UserInterface attribute `CurrentTerritory`. A setter method will then set the current 
 * **UserInterface**
     * `DataMenuAction(Territory territory)`: Indicates that a territory has been selected in the TerritoryDataMenu.
+    * `SpinBoxInputConfirmed(int numInput)`: Sent by UserInterfaceNumberInput. `numInput` is the number that the user inputted into the box. 
 
 ## Game logic pseudocode:
 The following pseudocode describes some of the functions within the `BoardRoot` class which are used to transition between different turn stages and different players. 

@@ -161,13 +161,12 @@ public partial class BoardRoot : Node2D
 				}
 				else
 				{
-					//set the game state to the fortify stage as seen above. This code has not been written yet as there
-					// is no fortify stage enum as of Sprint 2.
-					
-					//this.GameState = GameStatus.FortifyTerritoriesStage;
+					this.GameState = GameStatus.FortifyTerritoriesStage;
 					this._currentPlayerIndex = -1;
 					TurnTransition();
 				}
+				break;
+			case GameStatus.FortifyTerritoriesStage:
 				break;
 		}
 	}
