@@ -101,7 +101,8 @@ classDiagram
     * `DataMenuAction(Territory territory)`: Indicates that a territory has been selected in the TerritoryDataMenu.
     * `SpinBoxInputConfirmed(int numInput)`: Sent by UserInterfaceNumberInput. `numInput` is the number that the user inputted into the box. 
 
-## Game logic pseudocode:
+## Pseudocode:
+### BoardRoot Pseudocode
 The following pseudocode describes some of the functions within the `BoardRoot` class which are used to transition between different turn stages and different players. 
 ```
 Ready:
@@ -114,10 +115,18 @@ DataMenuActionSignalReceived: (Called when the button in the DataMenu is clicked
 		StartPhaseClaimTerritories()
 	If in StartFortifyTerritories phase:
 		StartPhaseFortifyTerritories()
+    if in TurnPlacementStage:
+        Show Gui's "NumInputMenu", where the message prompts the player to fortify the territory, the minimum value is 1, and the maximum value is the amount of available tokens that player has.
+
+SpinboxInputSignal(int numInput): (Called when the "Confirm" button is clicked for the spinbox menu.)
+    if in TurnPlacementStage:
+        Get territory currently selected by the UI
+        add the numInput parameter value to the territory's tokens
+        subtract the numInput parameter value from the player's tokens.
 
 EndTurnStageButton: (Called when the end turn stage button is clicked)
     if in TurnPlacementStage:
-
+        TurnTransition()
 
 TurnTransition:
 	If in StartClaimTerritories Phase:
@@ -164,6 +173,8 @@ List<Territory> World.GetUnclaimedTerritories:
 List<Continent> World.PlayerOwnsTerritories(Player p):
     Returns a list of continents in which the player specified owns all territories.
 ```
+
+### AI Player Pseudocode
 
 # Designs from Previous Sprints
 ## Process for Selecting a Territory

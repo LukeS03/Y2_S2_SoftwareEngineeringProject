@@ -28,14 +28,14 @@ public partial class UserInterfaceNumberInput : Control
 	{
 	}
 
-	public void ShowNumberInput(String message, int minimum, int maximum)
+	public void ShowNumberInput(string message, int minimum, int maximum)
 	{
 		/*
 		 * ToDo:
 		 * 1. Set this.Visible to true.
 		 * 2. Set spinbox Min Value to minimum
 		 * 3. Set spinbox Max Value to maximum
-		 * 4. Set heading label text to message.
+		 * 4. Set heading label text to match the message.
 		 */
 	}
 

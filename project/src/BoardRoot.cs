@@ -21,6 +21,7 @@ public partial class BoardRoot : Node2D
 	{
 		this.GameWorld = this.GetNode<World>("World");
 		this.Gui = this.GetNode<UserInterface>("UserInterface");
+		this.Gui.NumInputMenu.SpinBoxInputConfirmed += SpinboxInputSignal;
 
 		/*This code is invalid and the signal will be removed. Children are initialised before their parents and therefore
 		 we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
@@ -134,6 +135,18 @@ public partial class BoardRoot : Node2D
 		}
 	}
 
+	private void SpinboxInputSignal(int numInput)
+	{
+		switch (this.GameState)
+		{
+			case GameStatus.FortifyTerritoriesStage:
+				this.Gui.CurrentTerritory.Tokens += numInput;
+				this.CurrentTurn.Tokens -= numInput;
+				this.Gui.UpdatePlayersAvailableTokens();
+				break;
+		}
+	}
+
 	private void TurnTransition()
 	{
 		switch (GameState)
@@ -167,6 +180,12 @@ public partial class BoardRoot : Node2D
 				}
 				break;
 			case GameStatus.FortifyTerritoriesStage:
+				//Calculate the amount of tokens the player gets this turn.
+				SetCurrentPlayer();
+				this.Gui.UpdateCurrentPlayerAndTurn(CurrentTurn, GameState);
+				this.CurrentTurn.Tokens += 3; // add the minimum number of extra tokens
+				foreach (Continent c in this.GameWorld.PlayerOwnsContinents(CurrentTurn)) this.CurrentTurn.Tokens += c.Tokens; // and the respective tokens for continents owned by player
+				this.Gui.UpdatePlayersAvailableTokens();
 				break;
 		}
 	}

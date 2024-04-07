@@ -51,11 +51,15 @@ public partial class TerritoryDataMenu : VBoxContainer
         {
             case GameStatus.StartClaimTerritories:
                 this.actionButton.Text = "Claim";
-                if(territory.Owner != null) {this.actionButton.Disabled = true;}
+                if(territory.Owner != null) this.actionButton.Disabled = true;
                 break;
             case GameStatus.StartFortifyTerritories:
                 this.actionButton.Text = "Fortify";
-                if(territory.Owner != currentPlayer) {this.actionButton.Disabled = true;}
+                if(territory.Owner != currentPlayer) this.actionButton.Disabled = true;
+                break;
+            case GameStatus.FortifyTerritoriesStage:
+                this.actionButton.Text = "Fortify";
+                if (territory.Owner != currentPlayer) this.actionButton.Disabled = true;
                 break;
             default:
                 Console.Out.WriteLine("https://www.youtube.com/watch?v=j5BXUF_4PP0");

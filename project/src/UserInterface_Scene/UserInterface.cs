@@ -14,9 +14,14 @@ public partial class UserInterface : Control
 	public List<UserInterfacePlayer> PlayersList;
 	private Label _modeLabel;
 	private Label _activePlayerLabel;
+	private Button _endTurnButton;
+	public UserInterfaceNumberInput NumInputMenu;
 
 	[Signal]
 	public delegate void DataMenuActionEventHandler();
+	
+	[Signal]
+	public delegate void EndTurnButtonEventHandler();
     
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -25,6 +30,8 @@ public partial class UserInterface : Control
 		this._modeLabel = this.GetNode<Label>("BottomMenuBar/ModeLabel");
 		this.TerritoryMenu.Visible = false; // hide the territory data menu until a territory is clicked.
 		this._activePlayerLabel = this.GetNode<Label>("BottomMenuBar/ActivePlayerLabel");
+		this.NumInputMenu = this.GetNode<UserInterfaceNumberInput>("UserInterfaceNumberInput");
+		this._endTurnButton = this.GetNode<Button>("BottomMenuBar/EndTurnButton");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -41,6 +48,11 @@ public partial class UserInterface : Control
 	{
 		EmitSignal(UserInterface.SignalName.DataMenuAction);
 		this.TerritoryMenu.Visible = false;
+	}
+
+	public void onEndTurnButtonClicked()
+	{
+		EmitSignal(UserInterface.SignalName.EndTurnButton);
 	}
 
 	public void InitialisePlayers(List<Player> players)
@@ -65,10 +77,16 @@ public partial class UserInterface : Control
 		switch (state)
 		{
 			case GameStatus.StartClaimTerritories:
+				this._endTurnButton.Visible = false;
 				PlayerPromptText += "Select an unclaimed territory to claim.";
 				break;
 			case GameStatus.StartFortifyTerritories:
+				this._endTurnButton.Visible = false;
 				PlayerPromptText += "Select one of your territories to fortify with one troop.";
+				break;
+			case GameStatus.FortifyTerritoriesStage:
+				this._endTurnButton.Visible = true;
+				PlayerPromptText += "Select one of your territories to fortify.";
 				break;
 		}
 
