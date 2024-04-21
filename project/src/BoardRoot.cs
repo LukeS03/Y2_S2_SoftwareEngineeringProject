@@ -16,6 +16,11 @@ public partial class BoardRoot : Node2D
 	public World GameWorld;
 	public UserInterface Gui;
 	
+	//game config:
+	public bool AutoAssign = false;
+	public bool CapitalRisk = false;
+	
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
