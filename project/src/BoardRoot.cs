@@ -27,10 +27,6 @@ public partial class BoardRoot : Node2D
 		this.GameWorld = this.GetNode<World>("World");
 		this.Gui = this.GetNode<UserInterface>("UserInterface");
 		this.Gui.NumInputMenu.SpinBoxInputConfirmed += SpinboxInputSignal;
-
-		/*This code is invalid and the signal will be removed. Children are initialised before their parents and therefore
-		 we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
-		//this.GameWorld.InitialisedTerritories += () => SetTerritorySignals();
 		
 		SetTerritorySignals();
 
@@ -38,20 +34,6 @@ public partial class BoardRoot : Node2D
 
 		this.GameState = GameStatus.StartClaimTerritories;
 		
-		/*
-		 * SAMPLE PLAYERS.
-		 * TBD: Remove once the main menu is set up
-		 */
-		/*
-		var color1 = new Color(1,0,0);
-		var color2 = new Color(0,1,0);
-		Player samplePlayer1 = new Player("Sample Player One", color1, false);
-		this.Players.Add(samplePlayer1);
-
-		Player samplePlayer2 = new Player("Sample Player Two", color2, true);
-		this.Players.Add(samplePlayer2);
-		*/
-
 		int tokensPerPlayer = 9001;
 		switch (Players.Count)
 		{
@@ -84,6 +66,7 @@ public partial class BoardRoot : Node2D
 		this.Gui.InitialisePlayers(Players);
 		SetCurrentPlayer();
 		this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
+		if(AutoAssign) autoAssignTerritories();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -136,6 +119,9 @@ public partial class BoardRoot : Node2D
 				break;
 			case GameStatus.StartFortifyTerritories:
 				StartFortifyTerritories();
+				break;
+			case GameStatus.FortifyTerritoriesStage:
+				FortifyTerritory();
 				break;
 		}
 	}
@@ -217,5 +203,23 @@ public partial class BoardRoot : Node2D
 		this.Gui.UpdatePlayersAvailableTokens();
 		TurnTransition();
 	}
-	
+
+	private void FortifyTerritory()
+	{
+		this.Gui.NumInputMenu.ShowNumberInput("Fortify Territory", 0, CurrentTurn.Tokens);
+	}
+
+	private void autoAssignTerritories()
+	{
+		foreach (var t in GameWorld.Territories)
+		{
+			SetCurrentPlayer();
+			t.Owner = CurrentTurn;
+			CurrentTurn.ControlledTerritories.Add(t);
+		}
+
+		_currentPlayerIndex = -1;
+		GameState = GameStatus.FortifyTerritoriesStage;
+		TurnTransition();
+	}
 }

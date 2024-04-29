@@ -80,6 +80,7 @@ public partial class MainMenu : Control
 		var gameSceneInstance = gameScene.Instantiate<BoardRoot>();
 		gameSceneInstance.Players = this.Players;
 		GetTree().Root.AddChild(gameSceneInstance);
+		if (IsCapitalRisk) gameSceneInstance.AutoAssign = true;
 		GetTree().Root.RemoveChild(GetTree().Root.GetNode<Node>("MainMenu"));
 
 	}

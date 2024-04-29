@@ -51,3 +51,6 @@ text = "Confirm"
 layout_mode = 2
 text = "Cancel
 "
+
+[connection signal="pressed" from="InputVBox/ButtonsHBox/ConfirmButton" to="." method="_on_Confirm_Button_Pressed"]
+[connection signal="pressed" from="InputVBox/ButtonsHBox/CancelButton" to="." method="_on_Confirm_Button_Pressed"]

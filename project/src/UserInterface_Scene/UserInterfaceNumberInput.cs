@@ -43,7 +43,7 @@ public partial class UserInterfaceNumberInput : Control
 		this._headingLabel.Text = message;
 	}
 
-	public void _on_Confirm_Button_Pressed()
+	private void _on_Confirm_Button_Pressed()
 	{
 		/*
 		 * ToDo:
@@ -51,9 +51,10 @@ public partial class UserInterfaceNumberInput : Control
 		 * 2: Set this.Visible to false.
 		 */
 		EmitSignal(SignalName.SpinBoxInputConfirmed, _integerInputSpinBox.Value);
+		this.Visible = false;
 	}
 
-	public void _on_Cancel_Button_Pressed()
+	private void _on_Cancel_Button_Pressed()
 	{
 		/*
 		 * ToDo:
