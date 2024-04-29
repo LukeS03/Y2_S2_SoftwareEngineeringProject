@@ -26,11 +26,13 @@ public partial class BoardRoot : Node2D
 	{
 		this.GameWorld = this.GetNode<World>("World");
 		this.Gui = this.GetNode<UserInterface>("UserInterface");
-		this.Gui.NumInputMenu.SpinBoxInputConfirmed += SpinboxInputSignal;
+		
 		
 		SetTerritorySignals();
 
 		this.Gui.DataMenuAction += DataMenuActionSignalReceived;
+		this.Gui.NumInputMenu.SpinBoxInputConfirmed += SpinboxInputSignal;
+		this.Gui.EndTurnButton += endTurnButtonClicked;
 
 		this.GameState = GameStatus.StartClaimTerritories;
 		
@@ -220,6 +222,11 @@ public partial class BoardRoot : Node2D
 
 		_currentPlayerIndex = -1;
 		GameState = GameStatus.FortifyTerritoriesStage;
+		TurnTransition();
+	}
+
+	private void endTurnButtonClicked()
+	{
 		TurnTransition();
 	}
 }

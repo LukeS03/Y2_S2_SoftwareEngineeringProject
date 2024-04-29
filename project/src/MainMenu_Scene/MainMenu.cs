@@ -18,6 +18,7 @@ using System.Collections.Generic;
 public partial class MainMenu : Control
 {
 	public bool IsCapitalRisk = false;
+	public bool isAutoAssign = false;
 	public List<Player> Players = new List<Player>();
 	public static Color[] PlayerColours;
 
@@ -51,6 +52,11 @@ public partial class MainMenu : Control
 		IsCapitalRisk = isPressed;
 	}
 
+	public void _on_Auto_Assign_Enabled(bool isPressed)
+	{
+		isAutoAssign = isPressed;
+	}
+
 	public void _on_Add_Players_Button_Clicked()
 	{
 		if(Players.Count + 1 >= 2) this.GetNode<Button>("VBoxContainer/StartButton").Disabled = false;
@@ -79,8 +85,9 @@ public partial class MainMenu : Control
 		var gameScene = ResourceLoader.Load<PackedScene>("res://scenes/BoardRoot.tscn");
 		var gameSceneInstance = gameScene.Instantiate<BoardRoot>();
 		gameSceneInstance.Players = this.Players;
+		if (IsCapitalRisk) gameSceneInstance.CapitalRisk = true;
+		if (isAutoAssign) gameSceneInstance.AutoAssign = true;
 		GetTree().Root.AddChild(gameSceneInstance);
-		if (IsCapitalRisk) gameSceneInstance.AutoAssign = true;
 		GetTree().Root.RemoveChild(GetTree().Root.GetNode<Node>("MainMenu"));
 
 	}
