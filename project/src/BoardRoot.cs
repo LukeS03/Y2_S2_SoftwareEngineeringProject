@@ -218,6 +218,9 @@ public partial class BoardRoot : Node2D
 			SetCurrentPlayer();
 			t.Owner = CurrentTurn;
 			CurrentTurn.ControlledTerritories.Add(t);
+			t.Modulate = CurrentTurn.PlayerColour;
+			t.Tokens++;
+			CurrentTurn.Tokens--;
 		}
 
 		_currentPlayerIndex = -1;
