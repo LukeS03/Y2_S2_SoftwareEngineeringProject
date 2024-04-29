@@ -37,6 +37,10 @@ public partial class UserInterfaceNumberInput : Control
 		 * 3. Set spinbox Max Value to maximum
 		 * 4. Set heading label text to match the message.
 		 */
+		this.Visible = true;
+		this._integerInputSpinBox.MinValue = minimum;
+		this._integerInputSpinBox.MaxValue = maximum;
+		this._headingLabel.Text = message;
 	}
 
 	public void _on_Confirm_Button_Pressed()
@@ -46,6 +50,7 @@ public partial class UserInterfaceNumberInput : Control
 		 * 1: Emit the signal 'SpinBoxInputConfirmed'.
 		 * 2: Set this.Visible to false.
 		 */
+		EmitSignal(SignalName.SpinBoxInputConfirmed, _integerInputSpinBox.Value);
 	}
 
 	public void _on_Cancel_Button_Pressed()
@@ -54,5 +59,6 @@ public partial class UserInterfaceNumberInput : Control
 		 * ToDo:
 		 * Set this.Visible to false.
 		 */
+		this.Visible = false;
 	}
 }
