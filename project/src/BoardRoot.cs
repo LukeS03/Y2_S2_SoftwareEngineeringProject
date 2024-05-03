@@ -16,37 +16,26 @@ public partial class BoardRoot : Node2D
 	public World GameWorld;
 	public UserInterface Gui;
 	
+	//game config:
+	public bool AutoAssign = false;
+	public bool CapitalRisk = false;
+	
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		this.GameWorld = this.GetNode<World>("World");
 		this.Gui = this.GetNode<UserInterface>("UserInterface");
-		this.Players = new List<Player>();
-
-		/*This code is invalid and the signal will be removed. Children are initialised before their parents and therefore
-		 we don't need this signal to tell the parent instance it has been finished. It also just doesn't work lol. */
-		//this.GameWorld.InitialisedTerritories += () => SetTerritorySignals();
+		
 		
 		SetTerritorySignals();
 
 		this.Gui.DataMenuAction += DataMenuActionSignalReceived;
+		this.Gui.NumInputMenu.SpinBoxInputConfirmed += SpinboxInputSignal;
+		this.Gui.EndTurnButton += endTurnButtonClicked;
 
 		this.GameState = GameStatus.StartClaimTerritories;
 		
-		/*
-		 * SAMPLE PLAYERS.
-		 * TBD: Remove once the main menu is set up
-		 */
-
-		var color1 = new Color(1,0,0);
-		var color2 = new Color(0,1,0);
-		Player samplePlayer1 = new Player("Sample Player One", color1, false);
-		this.Players.Add(samplePlayer1);
-
-		Player samplePlayer2 = new Player("Sample Player Two", color2, true);
-		this.Players.Add(samplePlayer2);
-
-
 		int tokensPerPlayer = 9001;
 		switch (Players.Count)
 		{
@@ -79,6 +68,7 @@ public partial class BoardRoot : Node2D
 		this.Gui.InitialisePlayers(Players);
 		SetCurrentPlayer();
 		this.Gui.UpdateCurrentPlayerAndTurn(this.CurrentTurn, this.GameState);
+		if(AutoAssign) autoAssignTerritories();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -132,6 +122,21 @@ public partial class BoardRoot : Node2D
 			case GameStatus.StartFortifyTerritories:
 				StartFortifyTerritories();
 				break;
+			case GameStatus.FortifyTerritoriesStage:
+				FortifyTerritory();
+				break;
+		}
+	}
+
+	private void SpinboxInputSignal(int numInput)
+	{
+		switch (this.GameState)
+		{
+			case GameStatus.FortifyTerritoriesStage:
+				this.Gui.CurrentTerritory.Tokens += numInput;
+				this.CurrentTurn.Tokens -= numInput;
+				this.Gui.UpdatePlayersAvailableTokens();
+				break;
 		}
 	}
 
@@ -162,13 +167,18 @@ public partial class BoardRoot : Node2D
 				}
 				else
 				{
-					//set the game state to the fortify stage as seen above. This code has not been written yet as there
-					// is no fortify stage enum as of Sprint 2.
-					
-					//this.GameState = GameStatus.FortifyTerritoriesStage;
+					this.GameState = GameStatus.FortifyTerritoriesStage;
 					this._currentPlayerIndex = -1;
 					TurnTransition();
 				}
+				break;
+			case GameStatus.FortifyTerritoriesStage:
+				//Calculate the amount of tokens the player gets this turn.
+				SetCurrentPlayer();
+				this.Gui.UpdateCurrentPlayerAndTurn(CurrentTurn, GameState);
+				this.CurrentTurn.Tokens += 3; // add the minimum number of extra tokens
+				foreach (Continent c in this.GameWorld.PlayerOwnsContinents(CurrentTurn)) this.CurrentTurn.Tokens += c.Tokens; // and the respective tokens for continents owned by player
+				this.Gui.UpdatePlayersAvailableTokens();
 				break;
 		}
 	}
@@ -195,5 +205,31 @@ public partial class BoardRoot : Node2D
 		this.Gui.UpdatePlayersAvailableTokens();
 		TurnTransition();
 	}
-	
+
+	private void FortifyTerritory()
+	{
+		this.Gui.NumInputMenu.ShowNumberInput("Fortify Territory", 0, CurrentTurn.Tokens);
+	}
+
+	private void autoAssignTerritories()
+	{
+		foreach (var t in GameWorld.Territories)
+		{
+			SetCurrentPlayer();
+			t.Owner = CurrentTurn;
+			CurrentTurn.ControlledTerritories.Add(t);
+			t.Modulate = CurrentTurn.PlayerColour;
+			t.Tokens++;
+			CurrentTurn.Tokens--;
+		}
+
+		_currentPlayerIndex = -1;
+		GameState = GameStatus.FortifyTerritoriesStage;
+		TurnTransition();
+	}
+
+	private void endTurnButtonClicked()
+	{
+		TurnTransition();
+	}
 }

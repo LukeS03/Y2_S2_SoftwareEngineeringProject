@@ -2,12 +2,15 @@ using Godot;
 
 namespace WorldConquest.UserInterface_Scene;
 
+/// <summary>
+/// A class that controls each of the UI elements which display each player in the game's user interface.
+/// </summary>
 public partial class UserInterfacePlayer : VBoxContainer
 {
 	public Label PlayerNameLabel;
 	public Label PlayerTokensLabel;
 	public Player player;
-
+	
 	public Player Player
 	{
 		get { return this.player; }

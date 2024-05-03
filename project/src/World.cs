@@ -169,4 +169,25 @@ public partial class World : Node2D
 
 		return unclaimedTerritories;
 	}
+
+	/// <summary>
+	/// Returns a list of continents owned by a player.
+	/// </summary>
+	/// <param name="p"></param>
+	/// <returns></returns>
+	public List<Continent> PlayerOwnsContinents(Player p)
+	{
+		List<Continent> ownedContinents = new List<Continent>();
+		foreach (Continent c in this.Continents)
+		{
+			bool playerOwnsThisContinent = true;
+			foreach (Territory t in this.Territories)
+			{
+				if (t.TerritoryContinent == c && t.Owner != p) playerOwnsThisContinent = false;
+			}
+			if(playerOwnsThisContinent) ownedContinents.Add(c);
+		}
+
+		return ownedContinents;
+	}
 }

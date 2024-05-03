@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://diuwxt3hix0q4"]
+[gd_scene load_steps=2 format=3 uid="uid://diuwxt3hix0q4"]
+
+[ext_resource type="Script" path="res://src/MainMenu_Scene/MainMenuPlayer.cs" id="1_k86dp"]
 
 [node name="Player1HBox" type="HBoxContainer"]
 alignment = 1
+script = ExtResource("1_k86dp")
 
 [node name="PlayerName" type="Label" parent="."]
 layout_mode = 2
@@ -20,3 +23,5 @@ horizontal_alignment = 2
 [node name="CheckButton" type="CheckButton" parent="."]
 layout_mode = 2
 alignment = 2
+
+[connection signal="toggled" from="CheckButton" to="." method="_on_IsAIPlayerButton_toggled"]

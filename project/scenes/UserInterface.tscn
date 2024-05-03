@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4jjc7o8j5mdr"]
+[gd_scene load_steps=5 format=3 uid="uid://c4jjc7o8j5mdr"]
 
 [ext_resource type="Script" path="res://src/UserInterface_Scene/UserInterface.cs" id="1_a7gap"]
 [ext_resource type="Script" path="res://src/UserInterface_Scene/TerritoryDataMenu.cs" id="1_j1xg3"]
 [ext_resource type="Texture2D" uid="uid://coj7agk1n6plk" path="res://resources/ButtonBoxTexture.png" id="2_7ketp"]
+[ext_resource type="PackedScene" uid="uid://djkokf78w765n" path="res://scenes/UserInterface_NumberInput.tscn" id="2_atq30"]
 
 [node name="UserInterface" type="Control"]
 layout_mode = 3
@@ -10,6 +11,10 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_a7gap")
+
+[node name="UserInterfaceNumberInput" parent="." instance=ExtResource("2_atq30")]
+visible = false
+layout_mode = 1
 
 [node name="TerritoryDataMenu" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -67,11 +72,15 @@ icon_alignment = 1
 
 [node name="BottomMenuBar" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 486.0
-offset_top = 599.0
-offset_right = 833.0
-offset_bottom = 665.0
+offset_left = 487.0
+offset_top = 557.0
+offset_right = 834.0
+offset_bottom = 658.0
 alignment = 1
+
+[node name="EndTurnButton" type="Button" parent="BottomMenuBar"]
+layout_mode = 2
+text = "End Turn"
 
 [node name="ActivePlayerLabel" type="Label" parent="BottomMenuBar"]
 layout_mode = 2
