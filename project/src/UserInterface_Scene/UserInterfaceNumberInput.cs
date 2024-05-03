@@ -28,6 +28,12 @@ public partial class UserInterfaceNumberInput : Control
 	{
 	}
 
+	/// <summary>
+	/// Show the number input menu and prompt the player to input a value to carry out a certain action.
+	/// </summary>
+	/// <param name="message"></param> A message to be shown in the menu.
+	/// <param name="minimum"></param> Minimum allowed value
+	/// <param name="maximum"></param> Maximum allowed value
 	public void ShowNumberInput(string message, int minimum, int maximum)
 	{
 		/*
@@ -43,6 +49,9 @@ public partial class UserInterfaceNumberInput : Control
 		this._headingLabel.Text = message;
 	}
 
+	/// <summary>
+	/// Called when the "confirm" button is clicked. Sends a signal to BoardRoot which handles the event appropriately.
+	/// </summary>
 	private void _on_Confirm_Button_Pressed()
 	{
 		/*
@@ -54,6 +63,9 @@ public partial class UserInterfaceNumberInput : Control
 		this.Visible = false;
 	}
 
+	/// <summary>
+	/// Hide the menu.
+	/// </summary>
 	private void _on_Cancel_Button_Pressed()
 	{
 		/*
